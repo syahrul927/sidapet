@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tuscan Wall Impala */
+/* Suitable Cream Blush */
+/* Aware Yuzu Marmalade */
+/* Ableton Dark */
+@layer base {
+  :root {
+    --background: 0 0% 13.73%;
+    --foreground: 26 0% 82.69%;
+    --muted: 206 0% 5%;
+    --muted-foreground: 206 0% 86.15%;
+    --popover: 26 2.93% 10.46%;
+    --popover-foreground: 26 14% 99%;
+    --card: 0 0% 16.08%;
+    --card-foreground: 26 14% 99%;
+    --border: 26 11% 10%;
+    --input: 26 11% 10%;
+    --primary: 38.49 100% 72.15%;
+    --primary-foreground: 26 36.94% 21.07%;
+    --secondary: 206 0% 65%;
+    --secondary-foreground: 206 9.62% 15.09%;
+    --accent: 206 76% 88%;
+    --accent-foreground: 206 76% 28%;
+    --destructive: 15 93% 58%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 26 76% 88%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 311 55% 4%;
+    --foreground: 311 11% 98%;
+    --muted: 71 18% 8%;
+    --muted-foreground: 71 5% 66%;
+    --popover: 311 55% 4%;
+    --popover-foreground: 311 11% 98%;
+    --card: 311 55% 5%;
+    --card-foreground: 311 11% 99%;
+    --border: 311 4% 12%;
+    --input: 311 4% 12%;
+    --primary: 311 17% 90%;
+    --primary-foreground: 311 17% 30%;
+    --secondary: 71 17% 90%;
+    --secondary-foreground: 71 17% 10%;
+    --accent: 191 17% 90%;
+    --accent-foreground: 191 17% 30%;
+    --destructive: 3 92% 57%;
+    --destructive-foreground: 0 0% 100%;
+    --ring: 311 17% 90%;
+  }
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply text-3xl md:text-5xl leading-tight
+  }
+
+  h2 {
+    @apply text-2xl md:text-4xl leading-tight
+  }
+
+  h3 {
+    @apply text-xl md:text-3xl leading-tight
+  }
+}
