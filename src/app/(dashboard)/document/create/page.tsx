@@ -1,4 +1,10 @@
+import LayoutDashboard from "~/components/dashboard/layout-dashboard";
+import DocumentServices from "~/components/document/services";
 const CreateDocumentPage = () => {
-  return <h1>Create Document</h1>;
+  return (
+    <LayoutDashboard title="Dokumen Baru">
+      <DocumentServices />
+    </LayoutDashboard>
+  );
 };
 export default CreateDocumentPage;

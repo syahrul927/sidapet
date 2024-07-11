@@ -13,7 +13,7 @@ import DropdownAccount from "./dropdown-account";
 
 const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
   {
-    label: "Buat Dokumen",
+    label: "Request Dokumen",
     href: "/document/create",
     icon: PlusCircleIcon,
   },
@@ -34,10 +34,10 @@ const Header = () => {
       <nav className="hidden flex-col gap-5 text-lg font-medium md:flex md:flex-row md:items-center md:text-sm ">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-semibold md:text-base"
+          className="flex items-center  gap-2 rounded-sm p-1 text-lg font-semibold hover:bg-accent hover:text-background md:text-base"
         >
-          <GhostIcon className="h-8 w-8 rounded-sm hover:bg-accent hover:text-background" />
-          <span className="sr-only">SIDAPET</span>
+          <GhostIcon className="h-8 w-8" />
+          <span className="">SIDAPET</span>
         </Link>
         {MenuItems.map((menu) => (
           <Link href={menu.href} className="">
@@ -52,23 +52,20 @@ const Header = () => {
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
             <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-lg font-semibold"
-            >
+            <Link href="/" className="flex gap-2 text-lg font-semibold">
               <GhostIcon className="h-6 w-6" />
-              <span className="sr-only">SIDAPET</span>
+              <span className="">SIDAPET</span>
             </Link>
             {MenuItems.map((menu) => (
               <Link
                 href={menu.href}
-                className="text-muted-foreground hover:text-foreground"
+                className="flex items-center text-muted-foreground hover:text-foreground"
               >
+                <menu.icon size={"14"} className="mr-2" />
                 {menu.label}
               </Link>
             ))}

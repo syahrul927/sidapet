@@ -6,6 +6,7 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import LayoutDashboard from "~/components/dashboard/layout-dashboard";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { Badge } from "~/components/ui/badge";
@@ -28,7 +29,7 @@ import {
 
 export default function Dashboard() {
   return (
-    <>
+    <LayoutDashboard>
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
         <Card x-chunk="dashboard-01-chunk-0">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -282,6 +283,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </div>
-    </>
+    </LayoutDashboard>
   );
 }
