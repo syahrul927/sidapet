@@ -1,7 +1,7 @@
-import React from "react";
-import { DefaultValues } from "react-hook-form";
-import { z } from "zod";
-import { FieldConfig } from "./types";
+import type React from "react";
+import { type DefaultValues } from "react-hook-form";
+import { type z } from "zod";
+import { type FieldConfig } from "./types";
 
 // TODO: This should support recursive ZodEffects but TypeScript doesn't allow circular type definitions.
 export type ZodObjectOrWrapped =
@@ -31,7 +31,7 @@ export function getBaseSchema<
     return getBaseSchema(schema._def.innerType as ChildType);
   }
   if ("schema" in schema._def) {
-    return getBaseSchema(schema._def.schema as ChildType);
+    return getBaseSchema(schema._def.schema);
   }
 
   return schema as ChildType;

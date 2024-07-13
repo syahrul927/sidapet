@@ -4,7 +4,7 @@ export default withAuth({
   callbacks: {
     authorized: ({ req, token }) => {
       const path = req.nextUrl.pathname;
-      if (token || path.startsWith("/public")) {
+      if (path.startsWith("/public") || token) {
         return true;
       }
       return false;

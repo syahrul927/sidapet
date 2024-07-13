@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import LayoutDashboard from "~/components/dashboard/layout-dashboard";
 
 const LayoutUser = ({ children }: { children: ReactNode }) => {

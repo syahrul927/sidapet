@@ -1,6 +1,6 @@
 "use client";
-import { ColumnDef } from "@tanstack/react-table";
-import { UserTableSchemaProps } from "./data/user-table-schema";
+import { type ColumnDef } from "@tanstack/react-table";
+import { type UserTableSchemaProps } from "./data/user-table-schema";
 import Link from "next/link";
 import { Button } from "~/components/ui/button";
 

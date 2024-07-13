@@ -6,7 +6,7 @@ import AutoForm from "~/components/ui/auto-form";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useFormField } from "~/components/ui/form";
-import { SKJFormType, skjFormSchema } from "./data";
+import { type SKJFormType, skjFormSchema } from "./data";
 
 interface SKJFormValidationProps {
   data?: SKJFormType;

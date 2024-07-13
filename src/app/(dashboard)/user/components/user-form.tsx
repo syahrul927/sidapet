@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import TogglePassword from "~/components/auth/toggle-password";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import {
@@ -123,13 +124,10 @@ const UserForm = () => {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <CardTitle>Kata Sandi</CardTitle>
-                <Button
-                  variant={"link"}
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Hide" : "Show"} Password
-                </Button>
+                <TogglePassword
+                  showPassword={showPassword}
+                  setShowPassword={setShowPassword}
+                />
               </div>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">

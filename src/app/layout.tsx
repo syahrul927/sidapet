@@ -2,11 +2,11 @@ import "~/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
 
+import { TailwindIndicator } from "~/components/ui/tailwind-indicator";
+import { Toaster } from "~/components/ui/toaster";
 import { TRPCReactProvider } from "~/trpc/react";
 import NextAuthProvider from "./context/nextauth-provider";
-import { TailwindIndicator } from "~/components/ui/tailwind-indicator";
-import { ToastProvider } from "@radix-ui/react-toast";
-import { Toaster } from "~/components/ui/toaster";
+import { ThemeProvider } from "~/components/ui/theme-provider";
 
 export const metadata = {
   title: "SIDAPET",
@@ -21,12 +21,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="relative">
-        <NextAuthProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
-        </NextAuthProvider>
-        <TailwindIndicator />
-        <Toaster />
+      <body className="">
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <NextAuthProvider>
+            <TRPCReactProvider>{children}</TRPCReactProvider>
+          </NextAuthProvider>
+          <TailwindIndicator />
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

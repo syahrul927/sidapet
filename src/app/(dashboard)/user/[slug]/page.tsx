@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import InformationAccountTab from "./components/information-account-tab";
 import PasswordTab from "./components/password-tab";
 import { api } from "~/trpc/server";
-import { PageType } from "~/types/page-type";
+import { type PageType } from "~/types/page-type";
 import { redirect } from "next/navigation";
 
 const UserDetailPage = async ({ params }: PageType) => {

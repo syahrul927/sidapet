@@ -1,7 +1,7 @@
 import LayoutDashboard from "~/components/dashboard/layout-dashboard";
 import SKJDocument from "~/components/document/services/skj/form";
 import { ServicesDocument } from "~/data/service";
-import { PageType } from "~/types/page-type";
+import { type PageType } from "~/types/page-type";
 
 const DocumentCreateService = ({ params }: PageType) => {
   const slug = params.slug;

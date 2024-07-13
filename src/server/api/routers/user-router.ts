@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { Prisma, User } from "@prisma/client";
+import { Prisma, type User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { TRPCError } from "@trpc/server";
 import passwordHash from "~/lib/password-hash";

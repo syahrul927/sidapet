@@ -1,9 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { HTMLAttributes } from "react";
+import React, { type HTMLAttributes } from "react";
+import { PiArrowLeft } from "react-icons/pi";
 import { cn } from "~/lib/utils";
 import { Button } from "../ui/button";
-import { PiArrowLeft } from "react-icons/pi";
 
 interface LayoutDashboardProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
@@ -18,11 +18,16 @@ const LayoutDashboard = React.forwardRef<HTMLDivElement, LayoutDashboardProps>(
         {...props}
         className={cn(
           "container mx-auto flex flex-col gap-6 md:max-w-screen-xl",
+          className,
         )}
       >
         <div className="flex space-x-3">
           {back && (
-            <Button variant={"ghost"} onClick={router.back} size={"icon"}>
+            <Button
+              variant={"ghost"}
+              onClick={() => router.back()}
+              size={"icon"}
+            >
               <PiArrowLeft size={24} />
             </Button>
           )}
@@ -33,4 +38,5 @@ const LayoutDashboard = React.forwardRef<HTMLDivElement, LayoutDashboardProps>(
     );
   },
 );
+LayoutDashboard.displayName = "Layout Dashboard";
 export default LayoutDashboard;

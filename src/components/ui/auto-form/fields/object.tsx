@@ -5,10 +5,10 @@ import {
   AccordionTrigger,
 } from "~/components/ui/accordion";
 import { FormField } from "~/components/ui/form";
-import { useForm, useFormContext } from "react-hook-form";
+import { type useForm, useFormContext } from "react-hook-form";
 import * as z from "zod";
 import { DEFAULT_ZOD_HANDLERS, INPUT_COMPONENTS } from "../config";
-import { Dependency, FieldConfig, FieldConfigItem } from "../types";
+import { type Dependency, type FieldConfig, type FieldConfigItem } from "../types";
 import {
   beautifyObjectName,
   getBaseSchema,
@@ -66,7 +66,7 @@ export default function AutoFormObject<
     <Accordion type="multiple" className="space-y-5 border-none">
       {Object.keys(shape).map((name) => {
         let item = shape[name] as z.ZodAny;
-        item = handleIfZodNumber(item) as z.ZodAny;
+        item = handleIfZodNumber(item);
         const zodBaseType = getBaseType(item);
         const itemName = item._def.description ?? beautifyObjectName(name);
         const key = [...path, name].join(".");

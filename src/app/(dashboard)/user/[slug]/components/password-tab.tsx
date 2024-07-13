@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import TogglePassword from "~/components/auth/toggle-password";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -92,14 +93,11 @@ const PasswordTab = ({ id }: PasswordTabProps) => {
           <Card>
             <CardHeader>
               <div className="flex items-center justify-between">
-                <CardTitle>Kata Sandi</CardTitle>
-                <Button
-                  variant={"link"}
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? "Hide" : "Show"} Password
-                </Button>
+                <CardTitle>Ganti Kata Sandi</CardTitle>
+                <TogglePassword
+                  showPassword={showPassword}
+                  setShowPassword={setShowPassword}
+                />
               </div>
               <CardDescription>
                 Area berbahaya untuk mengelola password akun. Kamu dapat

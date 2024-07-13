@@ -1,7 +1,7 @@
 import {
   CheckCircleIcon,
   GhostIcon,
-  LucideIcon,
+  type LucideIcon,
   Menu,
   PlusCircleIcon,
   UsersIcon,
@@ -10,6 +10,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import DropdownAccount from "./dropdown-account";
+import { ThemeToggle } from "../ui/theme-toggle";
 
 const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
   {
@@ -40,7 +41,7 @@ const Header = () => {
           <span className="font-mono font-bold">SIDAPET</span>
         </Link>
         {MenuItems.map((menu) => (
-          <Link href={menu.href} className="">
+          <Link key={menu.label} href={menu.href} className="">
             <Button size={"sm"} variant={"ghost"}>
               <menu.icon size={"14"} className="mr-2" />
               {menu.label}
@@ -48,6 +49,9 @@ const Header = () => {
           </Link>
         ))}
       </nav>
+      <div className="flex w-full flex-row-reverse">
+        <ThemeToggle />
+      </div>
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
@@ -62,6 +66,7 @@ const Header = () => {
             </Link>
             {MenuItems.map((menu) => (
               <Link
+                key={menu.label}
                 href={menu.href}
                 className="flex items-center text-muted-foreground hover:text-foreground"
               >
@@ -72,7 +77,7 @@ const Header = () => {
           </nav>
         </SheetContent>
       </Sheet>
-      <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
+      <div className="flex items-center gap-4 md:gap-2 lg:gap-4">
         <DropdownAccount />
       </div>
     </header>

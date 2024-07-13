@@ -1,5 +1,6 @@
 "use client";
 import { CircleUser } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -8,7 +9,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { signOut } from "next-auth/react";
 
 const DropdownAccount = () => (
   <DropdownMenu>

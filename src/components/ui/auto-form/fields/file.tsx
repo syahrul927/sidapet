@@ -1,10 +1,10 @@
 import { FormControl, FormItem, FormMessage } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { Trash2, UploadIcon } from "lucide-react";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import AutoFormLabel from "../common/label";
 import AutoFormTooltip from "../common/tooltip";
-import { AutoFormInputComponentProps } from "../types";
+import { type AutoFormInputComponentProps } from "../types";
 import { Button, buttonVariants } from "../../button";
 import { Label } from "../../label";
 import { cn } from "~/lib/utils";

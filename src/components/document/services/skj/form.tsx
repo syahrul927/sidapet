@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { SKJFormType, skjFormSchema } from "./data";
+import { type SKJFormType, skjFormSchema } from "./data";
 import SKJFormValidation from "./validation";
 
 const SKJDocument = () => {

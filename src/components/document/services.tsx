@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IconType } from "react-icons/lib";
+import { type IconType } from "react-icons/lib";
 import { RiArrowRightUpLine } from "react-icons/ri";
 import { ServicesDocument } from "~/data/service";
 
@@ -7,7 +7,7 @@ const DocumentServices = () => {
   return (
     <div className="grid w-full gap-3 py-3 lg:grid-cols-2 xl:grid-cols-3">
       {ServicesDocument.map((service) => (
-        <ServiceItem {...service} />
+        <ServiceItem key={service.id} {...service} />
       ))}
     </div>
   );
