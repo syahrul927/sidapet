@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>
+      <body className="relative">
         <NextAuthProvider>
           <TRPCReactProvider>{children}</TRPCReactProvider>
         </NextAuthProvider>

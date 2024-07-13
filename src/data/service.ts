@@ -1,8 +1,11 @@
-import { RiHome4Line, RiMenLine, RiWomenLine } from "react-icons/ri";
-import { FaRupiahSign } from "react-icons/fa6";
-import { LiaBusinessTimeSolid } from "react-icons/lia";
 import { IconType } from "react-icons/lib";
-import { z } from "zod";
+import {
+  PiCoins,
+  PiGenderFemale,
+  PiGenderMale,
+  PiHandCoinsDuotone,
+  PiHouseLine,
+} from "react-icons/pi";
 
 export interface ServicesDocumentProps {
   id: string;
@@ -17,26 +20,26 @@ export const ServicesDocument = [
   {
     id: "01",
     label: "Surat Keterangan Janda",
-    icon: RiWomenLine,
+    icon: PiGenderFemale,
   },
   {
     id: "02",
     label: "Surat Keterangan Duda",
-    icon: RiMenLine,
+    icon: PiGenderMale,
   },
   {
     id: "03",
     label: "Surat Keterangan Tidak Mampu",
-    icon: FaRupiahSign,
+    icon: PiCoins,
   },
   {
     id: "03",
     label: "Surat Keterangan Usaha",
-    icon: LiaBusinessTimeSolid,
+    icon: PiHandCoinsDuotone,
   },
   {
     id: "04",
     label: "Surat Domisili Tempat Tinggal",
-    icon: RiHome4Line,
+    icon: PiHouseLine,
   },
 ];

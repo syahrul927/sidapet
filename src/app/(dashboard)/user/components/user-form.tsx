@@ -165,19 +165,19 @@ const UserForm = () => {
                   </FormItem>
                 )}
               />
+              <div className="flex justify-end gap-3">
+                <Button
+                  variant={"ghost"}
+                  type="button"
+                  onClick={() => void router.back()}
+                  disabled={isPending}
+                >
+                  Batal
+                </Button>
+                <Button disabled={isPending}>Simpan</Button>
+              </div>
             </CardContent>
           </Card>
-          <div className="flex justify-end gap-3">
-            <Button
-              variant={"secondary"}
-              type="button"
-              onClick={() => void router.back()}
-              disabled={isPending}
-            >
-              Batal
-            </Button>
-            <Button disabled={isPending}>Simpan</Button>
-          </div>
         </div>
       </form>
     </Form>

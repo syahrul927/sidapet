@@ -134,7 +134,7 @@ const InformationAccountTab = ({
             <div className={cn("flex justify-end gap-3")}>
               <Button
                 type="button"
-                variant={"secondary"}
+                variant={"ghost"}
                 disabled={!form.formState.isDirty || isPending}
                 onClick={() => form.reset()}
               >

@@ -34,10 +34,10 @@ const Header = () => {
       <nav className="hidden flex-col gap-5 text-lg font-medium md:flex md:flex-row md:items-center md:text-sm ">
         <Link
           href="/"
-          className="flex items-center  gap-2 rounded-sm p-1 text-lg font-semibold hover:bg-accent hover:text-background md:text-base"
+          className="flex items-center gap-1 rounded-lg px-3 py-1.5"
         >
-          <GhostIcon className="h-8 w-8" />
-          <span className="">SIDAPET</span>
+          <GhostIcon className="h-6 w-6 animate-pulse" />
+          <span className="font-mono font-bold">SIDAPET</span>
         </Link>
         {MenuItems.map((menu) => (
           <Link href={menu.href} className="">
