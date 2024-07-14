@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import DropdownAccount from "./dropdown-account";
 import { ThemeToggle } from "../ui/theme-toggle";
 
@@ -49,9 +49,6 @@ const Header = () => {
           </Link>
         ))}
       </nav>
-      <div className="flex w-full flex-row-reverse">
-        <ThemeToggle />
-      </div>
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="shrink-0 md:hidden">
@@ -60,23 +57,29 @@ const Header = () => {
         </SheetTrigger>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
-            <Link href="/" className="flex gap-2 text-lg font-semibold">
-              <GhostIcon className="h-6 w-6" />
-              <span className="">SIDAPET</span>
-            </Link>
-            {MenuItems.map((menu) => (
-              <Link
-                key={menu.label}
-                href={menu.href}
-                className="flex items-center text-muted-foreground hover:text-foreground"
-              >
-                <menu.icon size={"14"} className="mr-2" />
-                {menu.label}
+            <SheetClose asChild>
+              <Link href="/" className="flex gap-2 text-lg font-semibold">
+                <GhostIcon className="h-6 w-6" />
+                <span className="font-mono font-bold">SIDAPET</span>
               </Link>
+            </SheetClose>
+            {MenuItems.map((menu) => (
+              <SheetClose key={menu.label} asChild>
+                <Link
+                  href={menu.href}
+                  className="flex items-center text-muted-foreground hover:text-foreground"
+                >
+                  <menu.icon size={"14"} className="mr-2" />
+                  {menu.label}
+                </Link>
+              </SheetClose>
             ))}
           </nav>
         </SheetContent>
       </Sheet>
+      <div className="flex w-full flex-row-reverse">
+        <ThemeToggle />
+      </div>
       <div className="flex items-center gap-4 md:gap-2 lg:gap-4">
         <DropdownAccount />
       </div>

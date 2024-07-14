@@ -2,7 +2,8 @@ import { z } from "zod";
 import { BasicSchema } from "../basic-schema";
 
 export const skjFormSchema = BasicSchema.extend({
-  nik: z.string(),
+  cityBirth: z.string({ description: "Tempat Lahir" }),
+  dateOfBirth: z.date({ description: "Tanggal Lahir" }),
   pekerjaan: z.enum([
     "Belum / Tidak Bekerja",
     "Mengurus Rumah Tangga",
@@ -104,19 +105,17 @@ export const skjFormSchema = BasicSchema.extend({
     "Asisten Ahli",
     "Lainnya",
   ]),
-  address: z.string(),
-  cityBirth: z.string(),
-  dateOfBirth: z.date(),
-  gender: z.enum(["Laki-Laki", "Perempuan"]),
-  marriage: z.enum(["Belum Kawin", "Sudah Kawin"]),
-  religion: z.enum([
-    "Islam",
-    "Kristen Protestan",
-    "Kristen Katolik",
-    "Hindu",
-    "Buddha",
-  ]),
-  description: z.string(),
+  gender: z.enum(["Laki-Laki", "Perempuan"], { description: "Jenis Kelamin" }),
+  marriage: z.enum(["Belum Kawin", "Sudah Kawin"], {
+    description: "Status Pernikahan",
+  }),
+  religion: z.enum(
+    ["Islam", "Kristen Protestan", "Kristen Katolik", "Hindu", "Buddha"],
+    { description: "Agama" },
+  ),
+  nik: z.string({ description: "NIK" }),
+  address: z.string({ description: "Alamat Sesuai KTP" }),
+  description: z.string({ description: "Maksud/Kebutuhan" }),
 });
 export type SKJFormType = z.infer<typeof skjFormSchema>;
 // Berdasarkan surat keterangan dari RT/RW setempat dan berdasarkan pengakuan yang bersangkutan bahwa benarsampai dengan diterbitkan surat keterangan ini nama yangtersebut di atas benar memiliki usaha Fotocopy & Rental“77 KOMPUTERT” yang beralamat di Jl. MH. HasibuanRT. 004 RW. 004 No. 42 Kelurahan Margahayu KecamatanBekasi Timur Kota Bekasi

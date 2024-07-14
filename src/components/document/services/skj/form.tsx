@@ -16,7 +16,7 @@ const SKJDocument = () => {
     setResult(values);
   };
   return (
-    <Card className="h-fit md:max-w-xl">
+    <Card className="h-fit max-w-2xl">
       <CardHeader>
         <CardTitle>Surat Keterangan Janda</CardTitle>
         <CardDescription>
@@ -28,30 +28,23 @@ const SKJDocument = () => {
           formSchema={skjFormSchema}
           onSubmit={onSubmit}
           fieldConfig={{
-            nik: {
-              label: "NIK",
-            },
             gender: {
               fieldType: "radio",
-              label: "Jenis Kelamin",
             },
             marriage: {
-              label: "Status Pernikahan",
               fieldType: "radio",
             },
             description: {
               fieldType: "textarea",
-              label: "Maksud/Keperluan",
               description: "Tuliskan maksud dan keperluan secara lengkap!",
             },
             address: {
-              label: "Alamat",
               description: "Sesuaikan dengan alamat pada KTP",
               fieldType: "textarea",
             },
           }}
         >
-          <AutoFormSubmit>Submit</AutoFormSubmit>
+          <AutoFormSubmit>Simpan</AutoFormSubmit>
         </AutoForm>
       </CardContent>
     </Card>

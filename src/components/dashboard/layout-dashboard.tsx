@@ -21,22 +21,7 @@ const LayoutDashboard = React.forwardRef<HTMLDivElement, LayoutDashboardProps>(
           className,
         )}
       >
-        {back !== undefined || title !== undefined ? (
-          <div className="flex space-x-3">
-            {back && (
-              <Button
-                variant={"ghost"}
-                onClick={() => router.back()}
-                size={"icon"}
-              >
-                <PiArrowLeft size={24} />
-              </Button>
-            )}
-            {title && <h2>{title}</h2>}
-          </div>
-        ) : (
-          <></>
-        )}
+        {title && <h2>{title}</h2>}
         {children}
       </div>
     );

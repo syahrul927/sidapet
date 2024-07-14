@@ -7,7 +7,7 @@ const DocumentCreateService = ({ params }: PageType) => {
   const slug = params.slug;
   const service = ServicesDocument.find((service) => service.id === slug);
   return (
-    <LayoutDashboard back title={`Buat ${service?.label}`}>
+    <LayoutDashboard back>
       <SKJDocument />
     </LayoutDashboard>
   );
