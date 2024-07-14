@@ -8,7 +8,11 @@ import { FormField } from "~/components/ui/form";
 import { type useForm, useFormContext } from "react-hook-form";
 import * as z from "zod";
 import { DEFAULT_ZOD_HANDLERS, INPUT_COMPONENTS } from "../config";
-import { type Dependency, type FieldConfig, type FieldConfigItem } from "../types";
+import {
+  type Dependency,
+  type FieldConfig,
+  type FieldConfigItem,
+} from "../types";
 import {
   beautifyObjectName,
   getBaseSchema,
@@ -63,7 +67,11 @@ export default function AutoFormObject<
   };
 
   return (
-    <Accordion type="multiple" className="space-y-5 border-none">
+    <Accordion
+      type="multiple"
+      defaultValue={Object.keys(shape)}
+      className="space-y-5 border-none"
+    >
       {Object.keys(shape).map((name) => {
         let item = shape[name] as z.ZodAny;
         item = handleIfZodNumber(item);

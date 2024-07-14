@@ -6,16 +6,28 @@ import AutoForm from "~/components/ui/auto-form";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useFormField } from "~/components/ui/form";
-import { type SKJFormType, skjFormSchema } from "./data";
+import { type SKJFormType, skjFormSchema } from "~/data/skj/type";
+import generateDocument from "~/utils/generateDocument";
 
 interface SKJFormValidationProps {
   data?: SKJFormType;
 }
 const SKJFormValidation = ({ data }: SKJFormValidationProps) => {
+  const onSubmit = async (values: SKJFormType) => {
+    try {
+      await generateDocument({
+        documentTitle: "Surat Keterangan Janda",
+        email: values.email,
+        name: values.name,
+        phoneNumber: values.phoneNumber,
+        nikKtp: values.ktpFile,
+      });
+    } catch (error) {}
+  };
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Schema Validation</CardTitle>
+        <CardTitle>Konfirmasi Data</CardTitle>
       </CardHeader>
       <CardContent>
         <AutoForm
@@ -24,6 +36,7 @@ const SKJFormValidation = ({ data }: SKJFormValidationProps) => {
             name: data?.name,
             phoneNumber: data?.phoneNumber,
           }}
+          onSubmit={onSubmit}
           formSchema={skjFormSchema}
           fieldConfig={{
             ktpFile: {
@@ -48,7 +61,7 @@ const SKJFormValidation = ({ data }: SKJFormValidationProps) => {
           }}
         >
           <AlertSuccess />
-          <Button>Validation</Button>
+          <Button>Validate</Button>
         </AutoForm>
       </CardContent>
     </Card>

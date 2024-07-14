@@ -30,15 +30,23 @@ export const DatePicker = forwardRef<
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? (
+            date.toLocaleDateString("id-ID", {
+              dateStyle: "long",
+            })
+          ) : (
+            <span>Pick a date</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" ref={ref}>
         <Calendar
           mode="single"
+          captionLayout="dropdown-buttons"
           selected={date}
           onSelect={setDate}
-          initialFocus
+          fromYear={1960}
+          toYear={new Date().getFullYear()}
         />
       </PopoverContent>
     </Popover>

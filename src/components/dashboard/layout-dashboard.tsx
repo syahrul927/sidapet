@@ -17,22 +17,26 @@ const LayoutDashboard = React.forwardRef<HTMLDivElement, LayoutDashboardProps>(
         ref={ref}
         {...props}
         className={cn(
-          "container mx-auto flex flex-col gap-6 md:max-w-screen-xl",
+          "relative mx-auto flex flex-col gap-6 md:container md:max-w-screen-xl",
           className,
         )}
       >
-        <div className="flex space-x-3">
-          {back && (
-            <Button
-              variant={"ghost"}
-              onClick={() => router.back()}
-              size={"icon"}
-            >
-              <PiArrowLeft size={24} />
-            </Button>
-          )}
-          {title && <h2>{title}</h2>}
-        </div>
+        {back !== undefined || title !== undefined ? (
+          <div className="flex space-x-3">
+            {back && (
+              <Button
+                variant={"ghost"}
+                onClick={() => router.back()}
+                size={"icon"}
+              >
+                <PiArrowLeft size={24} />
+              </Button>
+            )}
+            {title && <h2>{title}</h2>}
+          </div>
+        ) : (
+          <></>
+        )}
         {children}
       </div>
     );
