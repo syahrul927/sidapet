@@ -1,5 +1,4 @@
 "use client";
-import LayoutDashboard from "~/components/dashboard/layout-dashboard";
 import {
   Card,
   CardContent,
@@ -8,9 +7,9 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { DataTable } from "~/components/ui/table/data-table";
+import { api } from "~/trpc/react";
 import { columnUserDataTable } from "./components/table/column-user";
 import { DataTableToolbarUser } from "./components/table/data-table-toolbar";
-import { api } from "~/trpc/react";
 
 const UserPage = () => {
   const { data } = api.user.findAll.useQuery();

@@ -1,9 +1,8 @@
-import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 import { Prisma, type User } from "@prisma/client";
-import bcrypt from "bcryptjs";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 import passwordHash from "~/lib/password-hash";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 const UserRouter = createTRPCRouter({
   delete: protectedProcedure

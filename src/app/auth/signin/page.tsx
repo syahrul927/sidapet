@@ -1,6 +1,5 @@
 import { type Metadata } from "next";
 import { getProviders } from "next-auth/react";
-import Image from "next/image";
 import { redirect } from "next/navigation";
 import { UserSigninForm } from "~/components/auth/user-signin-form";
 import {

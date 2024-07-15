@@ -35,7 +35,7 @@ const sample: RequestItemProps[] = [
   },
 ];
 const QueueDocument = () => {
-  const [list, setList] = useState(sample);
+  const [list] = useState(sample);
   const listNew = useMemo(
     () => list.filter((item) => item.status === "NEW"),
     [list],

@@ -32,3 +32,40 @@ model User {
     updatedDate DateTime? @updatedAt
     sessions    Session[]
 }
+
+model RequestDocument {
+    id                     String                   @id @unique @default(cuid())
+    code                   String?
+    templatePath           String
+    formatDocument         Json
+    documentId             String
+    status                 Status
+    ownerPhone             String
+    ownerName              String?
+    createdDate            DateTime                 @default(now())
+    updatedDate            DateTime                 @default(now()) @updatedAt
+    createdBy              String
+    updatedBy              String
+    RequestDocumentHistory RequestDocumentHistory[]
+}
+
+model RequestDocumentHistory {
+    id                String          @id @unique @default(cuid())
+    RequestDocument   RequestDocument @relation(fields: [requestDocumentId], references: [id])
+    status            Status
+    createdDate       DateTime        @default(now())
+    createdBy         String
+    requestDocumentId String
+}
+
+model CounterCategoryDocument {
+    id      String @id @unique @default(cuid())
+    code    String @unique
+    counter Int
+}
+
+enum Status {
+    NEW
+    VALIDATED
+    DONE
+}

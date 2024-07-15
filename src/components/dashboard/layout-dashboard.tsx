@@ -1,17 +1,12 @@
 "use client";
-import { useRouter } from "next/navigation";
 import React, { type HTMLAttributes } from "react";
-import { PiArrowLeft } from "react-icons/pi";
 import { cn } from "~/lib/utils";
-import { Button } from "../ui/button";
 
 interface LayoutDashboardProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;
-  back?: boolean;
 }
 const LayoutDashboard = React.forwardRef<HTMLDivElement, LayoutDashboardProps>(
-  ({ children, className, back, title, ...props }, ref) => {
-    const router = useRouter();
+  ({ children, className, title, ...props }, ref) => {
     return (
       <div
         ref={ref}

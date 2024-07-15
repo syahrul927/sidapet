@@ -40,7 +40,6 @@ const formLogin = z.object({
 });
 export function UserSigninForm({
   className,
-  providers,
   csrfToken,
   ...props
 }: Readonly<UserAuthFormProps>) {
@@ -77,7 +76,7 @@ export function UserSigninForm({
           description: "Email atau password salah!",
         });
       })
-      .catch((err) => {
+      .catch((_err) => {
         setIsLoading(false);
         toast({
           title: "Oops...",
