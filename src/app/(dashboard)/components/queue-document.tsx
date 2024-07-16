@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import SKJFormValidation from "~/components/document/validation";
 import { Badge } from "~/components/ui/badge";
 import {
   Card,
@@ -9,6 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "~/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { fromNow } from "~/lib/utils";
 const sample: RequestItemProps[] = [
@@ -89,22 +98,38 @@ interface RequestItemProps {
 }
 const RequestItem = (props: RequestItemProps) => {
   return (
-    <Card className="hover:text-background-foreground group cursor-pointer hover:bg-background">
-      <CardHeader className="flex flex-row justify-between px-4 py-2">
-        <div>
-          <CardTitle className="text-lg">{props.documentType}</CardTitle>
-          <CardDescription className="text-sm">{props.name}</CardDescription>
-        </div>
-        <p className="text-muted-foreground group-hover:text-primary-foreground">
-          {fromNow(props.createdDate)}
-        </p>
-      </CardHeader>
-      <CardContent className="gap-1 space-x-1 px-4">
-        <Badge variant={"outline"}>#{props.id}</Badge>
-        <Badge variant={props.status === "NEW" ? "accent" : "default"}>
-          {props.status}
-        </Badge>
-      </CardContent>
-    </Card>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Card className="hover:text-background-foreground cursor-pointer hover:bg-background/90">
+          <CardHeader className="flex flex-row justify-between px-4 py-2">
+            <div>
+              <CardTitle className="text-lg">{props.documentType}</CardTitle>
+              <CardDescription className="text-sm">
+                {props.name}
+              </CardDescription>
+            </div>
+            <p className="text-muted-foreground ">
+              {fromNow(props.createdDate)}
+            </p>
+          </CardHeader>
+          <CardContent className="gap-1 space-x-1 px-4">
+            <Badge variant={"outline"}>#{props.id}</Badge>
+            <Badge variant={props.status === "NEW" ? "accent" : "default"}>
+              {props.status}
+            </Badge>
+          </CardContent>
+        </Card>
+      </DialogTrigger>
+      <DialogContent className="max-h-[80vh] w-full max-w-screen-md overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Konfirmasi Data</DialogTitle>
+          <DialogDescription>
+            Pastikan data yang di perlukan lengkap dan isi form yang berasal
+            dari gambar!
+          </DialogDescription>
+        </DialogHeader>
+        <SKJFormValidation />
+      </DialogContent>
+    </Dialog>
   );
 };

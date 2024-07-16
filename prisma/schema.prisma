@@ -35,7 +35,7 @@ model User {
 
 model RequestDocument {
     id                     String                   @id @unique @default(cuid())
-    code                   String?
+    code                   String                   @unique // code document
     templatePath           String
     formatDocument         Json
     documentId             String

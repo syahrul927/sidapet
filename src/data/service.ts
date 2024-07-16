@@ -6,56 +6,90 @@ import {
   PiHandCoinsDuotone,
   PiHouseLine,
 } from "react-icons/pi";
+import { FieldConfig } from "~/components/ui/auto-form/types";
 import { type ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
-import { skjFormSchema } from "./skj/type";
+import { SKJFormSchema, SKJFormValidationSchema } from "./skj/type";
+import { z } from "zod";
 
-export interface ServicesDocumentProps {
-  id: string;
-  label: string;
+// Collect schemas into an array
+const schemas = [SKJFormSchema] as const;
+type SchemaUnion = (typeof schemas)[number];
+
+export interface ServicesDocumentProps<T extends ZodObjectOrWrapped> {
+  code: string;
+  title: string;
+  description?: string;
   icon: IconType;
-  formSchema: ZodObjectOrWrapped;
+  formSchema: T;
+  fieldConfig?: FieldConfig<z.infer<T>>;
+  formValidationSchema: ZodObjectOrWrapped;
   templatePath: string;
   documentId: string;
 }
-export const ServicesDocument: ServicesDocumentProps[] = [
+type DynamicPropsArray = ServicesDocumentProps<SchemaUnion>[];
+export const ServicesDocument: DynamicPropsArray = [
   {
-    id: "01",
-    label: "Surat Keterangan Janda",
+    code: "SKJ",
+    title: "Surat Keterangan Janda",
     icon: PiGenderFemale,
-    formSchema: skjFormSchema,
+    formSchema: SKJFormSchema,
+    formValidationSchema: SKJFormValidationSchema,
     templatePath: "/template/templateSKU.docx",
-    documentId: "553",
+    documentId: "550",
   },
   {
-    id: "02",
-    label: "Surat Keterangan Duda",
+    code: "SKD",
+    title: "Surat Keterangan Duda",
     icon: PiGenderMale,
-    formSchema: skjFormSchema,
+    formSchema: SKJFormSchema,
+    formValidationSchema: SKJFormValidationSchema,
     templatePath: "/template/templateSKU.docx",
-    documentId: "553",
+    documentId: "551",
   },
   {
-    id: "03",
-    label: "Surat Keterangan Tidak Mampu",
+    code: "SKTM",
+    title: "Surat Keterangan Tidak Mampu",
     icon: PiCoins,
-    formSchema: skjFormSchema,
+    formSchema: SKJFormSchema,
+    formValidationSchema: SKJFormValidationSchema,
     templatePath: "/template/templateSKU.docx",
-    documentId: "553",
+    documentId: "552",
   },
   {
-    id: "03",
-    label: "Surat Keterangan Usaha",
+    code: "SKU",
+    title: "Surat Keterangan Usaha",
     icon: PiHandCoinsDuotone,
-    formSchema: skjFormSchema,
+    formSchema: SKJFormSchema,
+    fieldConfig: {
+      suratPengantar: {
+        fieldType: "file",
+      },
+      gender: {
+        fieldType: "radio",
+      },
+      marriage: {
+        fieldType: "radio",
+      },
+      description: {
+        fieldType: "textarea",
+        description: "Tuliskan maksud dan keperluan secara lengkap!",
+      },
+      address: {
+        description: "Sesuaikan dengan alamat pada KTP",
+        fieldType: "textarea",
+      },
+    },
+    formValidationSchema: SKJFormValidationSchema,
     templatePath: "/template/templateSKU.docx",
     documentId: "553",
   },
   {
-    id: "04",
-    label: "Surat Domisili Tempat Tinggal",
+    code: "SDTT",
+    title: "Surat Domisili Tempat Tinggal",
     icon: PiHouseLine,
-    formSchema: skjFormSchema,
+    formSchema: SKJFormSchema,
+    formValidationSchema: SKJFormValidationSchema,
     templatePath: "/template/templateSKU.docx",
-    documentId: "553",
+    documentId: "554",
   },
 ];

@@ -1,6 +1,5 @@
 import LayoutDashboard from "~/components/dashboard/layout-dashboard";
 
-import DocumentValidation from "./components/document-validation";
 import QueueDocument from "./components/queue-document";
 
 export default function Dashboard() {
@@ -10,7 +9,6 @@ export default function Dashboard() {
         {/* <SummaryDashboard /> */}
         <QueueDocument />
       </div>
-      <DocumentValidation />
     </LayoutDashboard>
   );
 }

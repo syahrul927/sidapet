@@ -1,4 +1,4 @@
-import SKJFormValidation from "~/components/document/services/skj/validation";
+import SKJFormValidation from "~/components/document/validation";
 
 const DocumentValidation = () => {
   return (

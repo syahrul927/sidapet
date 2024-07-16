@@ -5,7 +5,7 @@ import AutoForm from "~/components/ui/auto-form";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { useFormField } from "~/components/ui/form";
-import { type SKJFormType, skjFormSchema } from "~/data/skj/type";
+import { type SKJFormType, SKJFormSchema } from "~/data/skj/type";
 
 interface SKJFormValidationProps {
   data?: SKJFormType;
@@ -21,28 +21,22 @@ const SKJFormValidation = ({ data }: SKJFormValidationProps) => {
     } catch (error) {}
   };
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Konfirmasi Data</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <AutoForm
-          values={{
-            name: data?.name,
-            phoneNumber: data?.phoneNumber,
-          }}
-          onSubmit={onSubmit}
-          formSchema={skjFormSchema}
-          fieldConfig={{}}
-        >
-          <AlertSuccess />
-          <Button>Validate</Button>
-        </AutoForm>
-      </CardContent>
-    </Card>
+    <AutoForm
+      values={{
+        name: data?.name,
+        phoneNumber: data?.phoneNumber,
+      }}
+      onSubmit={onSubmit}
+      formSchema={SKJFormSchema}
+      fieldConfig={{}}
+    >
+      <AlertSuccess />
+      <Button>Konfirmasi</Button>
+    </AutoForm>
   );
 };
 export default SKJFormValidation;
+
 const AlertSuccess = () => {
   const { invalid } = useFormField();
   return (
