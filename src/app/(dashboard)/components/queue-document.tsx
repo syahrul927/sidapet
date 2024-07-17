@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import SKJFormValidation from "~/components/document/validation";
 import { Badge } from "~/components/ui/badge";
 import {
@@ -20,38 +20,35 @@ import {
 } from "~/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { fromNow } from "~/lib/utils";
-const sample: RequestItemProps[] = [
-  {
-    name: "Sintia Haruno",
-    createdDate: new Date("2024-07-01"),
-    id: "01",
-    status: "NEW",
-    documentType: "Surat Keterangan Janda",
-  },
-  {
-    name: "Bagus Misumi",
-    createdDate: new Date("2024-07-02"),
-    id: "02",
-    status: "VALIDATED",
-    documentType: "Surat Keterangan Duda",
-  },
-  {
-    name: "Ilham Sugiono",
-    createdDate: new Date("2024-07-04"),
-    id: "03",
-    status: "VALIDATED",
-    documentType: "Surat Keterangan Usaha",
-  },
-];
+import { api } from "~/trpc/react";
 const QueueDocument = () => {
-  const [list] = useState(sample);
-  const listNew = useMemo(
-    () => list.filter((item) => item.status === "NEW"),
-    [list],
+  const { data } = api.document.getWaitingRequest.useQuery();
+  const listNew: RequestItemProps[] = useMemo(
+    () =>
+      data
+        ?.filter((item) => item.status === "NEW")
+        .map((item) => ({
+          id: item.documentConter,
+          name: item.ownerName ?? "",
+          documentType: item.title ?? "",
+          createdDate: item.createdDate,
+          status: item.status,
+        })) ?? [],
+
+    [data],
   );
-  const listValidated = useMemo(
-    () => list.filter((item) => item.status === "VALIDATED"),
-    [list],
+  const listValidated: RequestItemProps[] = useMemo(
+    () =>
+      data
+        ?.filter((item) => item.status === "VALIDATED")
+        .map((item) => ({
+          id: item.documentConter,
+          name: item.ownerName ?? "",
+          documentType: item.title ?? "",
+          createdDate: item.createdDate,
+          status: item.status,
+        })) ?? [],
+    [data],
   );
   return (
     <div className="flex flex-col">

@@ -26,8 +26,8 @@ export interface ServicesDocumentProps<T extends ZodObjectOrWrapped> {
   templatePath: string;
   documentId: string;
 }
-type DynamicPropsArray = ServicesDocumentProps<SchemaUnion>[];
-export const ServicesDocument: DynamicPropsArray = [
+type DynamicPropsArray = ServicesDocumentProps<SchemaUnion>;
+export const ServicesDocument: DynamicPropsArray[] = [
   {
     code: "SKJ",
     title: "Surat Keterangan Janda",
@@ -93,3 +93,10 @@ export const ServicesDocument: DynamicPropsArray = [
     documentId: "554",
   },
 ];
+export const MapServiceDocument = ServicesDocument.reduce(
+  (acc, document) => {
+    acc[document.code] = document;
+    return acc;
+  },
+  {} as { [key: string]: DynamicPropsArray },
+);

@@ -35,10 +35,11 @@ model User {
 
 model RequestDocument {
     id                     String                   @id @unique @default(cuid())
-    code                   String                   @unique // code document
+    documentCode           String // code document contoh: SKU
+    documentId             String //
+    documentConter         String
     templatePath           String
     formatDocument         Json
-    documentId             String
     status                 Status
     ownerPhone             String
     ownerName              String?
@@ -60,8 +61,12 @@ model RequestDocumentHistory {
 
 model CounterCategoryDocument {
     id      String @id @unique @default(cuid())
-    code    String @unique
+    code    String
+    year    Int
     counter Int
+
+    @@unique([code, year], name: "counterByCodeAndYear")
+    @@index([code, year])
 }
 
 enum Status {
