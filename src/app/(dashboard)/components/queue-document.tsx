@@ -1,38 +1,29 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import SKJFormValidation from "~/components/document/validation";
-import { Badge } from "~/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "~/components/ui/dialog";
+import { useMemo } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { fromNow } from "~/lib/utils";
 import { api } from "~/trpc/react";
+import RequestItem, { RequestItemProps } from "./request-document-item";
 const QueueDocument = () => {
-  const { data } = api.document.getWaitingRequest.useQuery();
+  const { data, isPending } = api.document.getWaitingRequest.useQuery(
+    undefined,
+    {
+      refetchOnMount: true,
+    },
+  );
   const listNew: RequestItemProps[] = useMemo(
     () =>
       data
         ?.filter((item) => item.status === "NEW")
         .map((item) => ({
-          id: item.documentConter,
+          documentCounter: item.documentConter,
           name: item.ownerName ?? "",
           documentType: item.title ?? "",
+          documentCode: item.documentCode,
+          formatDocument: JSON.stringify(item.formatDocument) ?? "",
           createdDate: item.createdDate,
           status: item.status,
+          id: item.id,
         })) ?? [],
 
     [data],
@@ -42,9 +33,12 @@ const QueueDocument = () => {
       data
         ?.filter((item) => item.status === "VALIDATED")
         .map((item) => ({
-          id: item.documentConter,
+          id: item.id,
+          documentCounter: item.documentConter,
           name: item.ownerName ?? "",
           documentType: item.title ?? "",
+          documentCode: item.documentCode,
+          formatDocument: JSON.stringify(item.formatDocument) ?? "",
           createdDate: item.createdDate,
           status: item.status,
         })) ?? [],
@@ -62,10 +56,30 @@ const QueueDocument = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="NEW">
-          <ListRequest data={listNew} />
+          {isPending ? (
+            <div className="flex h-48 w-full items-center justify-center">
+              <p>Loading...</p>
+            </div>
+          ) : listNew.length ? (
+            <ListRequest data={listNew} />
+          ) : (
+            <div className="flex h-48 w-full items-center justify-center">
+              <p>Belum ada data request masuk</p>
+            </div>
+          )}
         </TabsContent>
         <TabsContent value="VALIDATED">
-          <ListRequest data={listValidated} />
+          {isPending ? (
+            <div className="flex h-48 w-full items-center justify-center">
+              <p>Loading...</p>
+            </div>
+          ) : listValidated.length ? (
+            <ListRequest data={listValidated} />
+          ) : (
+            <div className="flex h-48 w-full items-center justify-center">
+              <p>Belum ada data request masuk</p>
+            </div>
+          )}
         </TabsContent>
       </Tabs>
     </div>
@@ -83,50 +97,5 @@ const ListRequest = (props: ListRequestProps) => {
         <RequestItem {...item} key={item.id} />
       ))}
     </div>
-  );
-};
-
-interface RequestItemProps {
-  name: string;
-  documentType: string;
-  createdDate: Date;
-  status: string;
-  id: string;
-}
-const RequestItem = (props: RequestItemProps) => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Card className="hover:text-background-foreground cursor-pointer hover:bg-background/90">
-          <CardHeader className="flex flex-row justify-between px-4 py-2">
-            <div>
-              <CardTitle className="text-lg">{props.documentType}</CardTitle>
-              <CardDescription className="text-sm">
-                {props.name}
-              </CardDescription>
-            </div>
-            <p className="text-muted-foreground ">
-              {fromNow(props.createdDate)}
-            </p>
-          </CardHeader>
-          <CardContent className="gap-1 space-x-1 px-4">
-            <Badge variant={"outline"}>#{props.id}</Badge>
-            <Badge variant={props.status === "NEW" ? "accent" : "default"}>
-              {props.status}
-            </Badge>
-          </CardContent>
-        </Card>
-      </DialogTrigger>
-      <DialogContent className="max-h-[80vh] w-full max-w-screen-md overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Konfirmasi Data</DialogTitle>
-          <DialogDescription>
-            Pastikan data yang di perlukan lengkap dan isi form yang berasal
-            dari gambar!
-          </DialogDescription>
-        </DialogHeader>
-        <SKJFormValidation />
-      </DialogContent>
-    </Dialog>
   );
 };

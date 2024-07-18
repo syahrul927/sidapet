@@ -22,13 +22,14 @@ const DocumentRouter = createTRPCRouter({
           message: "Tipe dokumen tidak diketahui!",
         });
       }
+      const year = new Date().getFullYear();
       const counter = await ctx.db.counterCategoryDocument.findFirst({
         where: {
           code: docType.code,
-          year: new Date().getFullYear(),
+          year: year,
         },
       });
-      await ctx.db.requestDocument.create({
+      const createDocument = ctx.db.requestDocument.create({
         data: {
           createdBy: ctx.session?.user.id ?? "PUBLIC",
           updatedBy: ctx.session?.user.id ?? "PUBLIC",
@@ -50,6 +51,23 @@ const DocumentRouter = createTRPCRouter({
           },
         },
       });
+      const increaseDoc = ctx.db.counterCategoryDocument.upsert({
+        where: {
+          counterByCodeAndYear: {
+            code: docType.code,
+            year,
+          },
+        },
+        update: {
+          counter: counter?.counter ? counter.counter + 1 : 1,
+        },
+        create: {
+          counter: 1,
+          year,
+          code: docType.code,
+        },
+      });
+      await Promise.all([createDocument, increaseDoc]);
     }),
   getWaitingRequest: protectedProcedure.query(async ({ ctx }) => {
     const documents = await ctx.db.requestDocument.findMany({
@@ -65,11 +83,69 @@ const DocumentRouter = createTRPCRouter({
         documentConter: true,
         documentCode: true,
         createdDate: true,
+        formatDocument: true,
       },
     });
     return documents.map((doc) => {
       return { ...doc, title: MapServiceDocument[doc.documentCode]?.title };
     });
   }),
+  validateRequest: protectedProcedure
+    .input(
+      z.object({
+        id: z.string(),
+        formatDocument: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const document = await ctx.db.requestDocument.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+      if (!document) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Documen tidak valid",
+        });
+      }
+      const requestDocument = ctx.db.requestDocument.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          formatDocument: JSON.parse(input.formatDocument),
+          status: "VALIDATED",
+        },
+      });
+      const historyDocument = ctx.db.requestDocumentHistory.create({
+        data: {
+          requestDocumentId: document.id,
+          createdBy: ctx.session?.user.id ?? "PUBLIC",
+          status: Status.VALIDATED,
+        },
+      });
+      await Promise.all([requestDocument, historyDocument]);
+    }),
+  getDetailRequest: protectedProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const document = await ctx.db.requestDocument.findUnique({
+        where: {
+          id: input,
+        },
+      });
+      if (!document) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Documen tidak valid",
+        });
+      }
+      return {
+        documentCode: document.documentCode,
+        documentCounter: document.documentConter,
+        formatDocument: JSON.stringify(document.formatDocument),
+      };
+    }),
 });
 export default DocumentRouter;

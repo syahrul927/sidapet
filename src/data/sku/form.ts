@@ -1,10 +1,11 @@
 import { z } from "zod";
 import { BasicSchema } from "../basic-schema";
+import { FieldConfig } from "~/components/ui/auto-form/types";
 
-export const SKJFormSchema = BasicSchema.extend({
-  cityBirth: z.string({ description: "Tempat Lahir" }),
-  dateOfBirth: z.date({ description: "Tanggal Lahir" }),
-  job: z.enum(
+export const SKUFormSchema = BasicSchema.extend({
+  kotaLahir: z.string({ description: "Tempat Lahir" }),
+  tglLahir: z.coerce.date({ description: "Tanggal Lahir" }),
+  pekerjaan: z.enum(
     [
       "Belum / Tidak Bekerja",
       "Mengurus Rumah Tangga",
@@ -108,24 +109,43 @@ export const SKJFormSchema = BasicSchema.extend({
     ],
     { description: "Jenis Pekerjaan" },
   ),
-  gender: z.enum(["Laki-Laki", "Perempuan"], { description: "Jenis Kelamin" }),
-  marriage: z.enum(["Belum Kawin", "Sudah Kawin"], {
+  jenisKelamin: z.enum(["Laki-Laki", "Perempuan"], {
+    description: "Jenis Kelamin",
+  }),
+  pernikahan: z.enum(["Belum Kawin", "Sudah Kawin"], {
     description: "Status Pernikahan",
   }),
-  religion: z.enum(
+  agama: z.enum(
     ["Islam", "Kristen Protestan", "Kristen Katolik", "Hindu", "Buddha"],
     { description: "Agama" },
   ),
   nik: z.string({ description: "NIK" }),
-  address: z.string({ description: "Alamat Sesuai KTP" }),
+  alamatKtp: z.string({ description: "Alamat Sesuai KTP" }),
   suratPengantar: z.string({
     description: "Upload foto surat pengantar dari RT/RW anda.",
   }),
-  description: z.string({ description: "Maksud/Kebutuhan" }),
+  namaUsaha: z.string({ description: "Nama Usaha" }),
+  alamatUsaha: z.string({ description: "Alamat Usaha" }),
+  keperluan: z.string({ description: "Keperluan/Alasan membuat surat usaha." }),
 });
-export type SKJFormType = z.infer<typeof SKJFormSchema>;
-// Berdasarkan surat keterangan dari RT/RW setempat dan berdasarkan pengakuan yang bersangkutan bahwa benarsampai dengan diterbitkan surat keterangan ini nama yangtersebut di atas benar memiliki usaha Fotocopy & Rental“77 KOMPUTERT” yang beralamat di Jl. MH. HasibuanRT. 004 RW. 004 No. 42 Kelurahan Margahayu KecamatanBekasi Timur Kota Bekasi
 
-export const SKJFormValidationSchema = SKJFormSchema.extend({
-  suratPengantarValue: z.string(),
-});
+export type SKJFormType = z.infer<typeof SKUFormSchema>;
+export const SKJFormFieldConfig: FieldConfig<z.infer<typeof SKUFormSchema>> = {
+  suratPengantar: {
+    fieldType: "file",
+  },
+  jenisKelamin: {
+    fieldType: "radio",
+  },
+  pernikahan: {
+    fieldType: "radio",
+  },
+  alamatKtp: {
+    description: "Sesuaikan dengan alamat pada KTP",
+    fieldType: "textarea",
+  },
+  alamatUsaha: {
+    description: "Alamat tempat ada melakukan bisnis/usaha",
+    fieldType: "textarea",
+  },
+};

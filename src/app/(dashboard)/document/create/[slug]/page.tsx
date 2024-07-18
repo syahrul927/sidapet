@@ -17,7 +17,7 @@ const DocumentCreateService = ({ params }: PageType) => {
         code={slug}
         schema={docType.formSchema}
         title={docType.title}
-        fieldConfig={docType.fieldConfig}
+        fieldConfig={docType.formFieldConfig}
       />
     </LayoutDashboard>
   );

@@ -34,7 +34,7 @@ export const DatePicker = forwardRef<
               dateStyle: "long",
             })
           ) : (
-            <span>Pick a date</span>
+            <span>Pilih tanggal</span>
           )}
         </Button>
       </PopoverTrigger>

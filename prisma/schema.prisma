@@ -52,7 +52,7 @@ model RequestDocument {
 
 model RequestDocumentHistory {
     id                String          @id @unique @default(cuid())
-    RequestDocument   RequestDocument @relation(fields: [requestDocumentId], references: [id])
+    RequestDocument   RequestDocument @relation(fields: [requestDocumentId], references: [id], onDelete: Cascade)
     status            Status
     createdDate       DateTime        @default(now())
     createdBy         String
