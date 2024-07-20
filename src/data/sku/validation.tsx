@@ -1,41 +1,48 @@
 "use client";
+
 import { z } from "zod";
-import { SKUFormSchema } from "./form";
+import PhotoPreview from "~/components/document/photo-preview";
 import { FieldConfig } from "~/components/ui/auto-form/types";
-import Image from "next/image";
+import { SKUFormSchema } from "./form";
+import { parseToSchema } from "~/utils/json-utils";
 
 // Berdasarkan surat keterangan dari RT/RW setempat dan berdasarkan pengakuan yang bersangkutan bahwa benarsampai dengan diterbitkan surat keterangan ini nama yangtersebut di atas benar memiliki usaha Fotocopy & Rental“77 KOMPUTERT” yang beralamat di Jl. MH. HasibuanRT. 004 RW. 004 No. 42 Kelurahan Margahayu KecamatanBekasi Timur Kota Bekasi
-export const SKJValidationSchema = SKUFormSchema.extend({
+export const SKUValidationSchema = SKUFormSchema.extend({
   suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
+  tglSuratPengantar: z.coerce.date({
+    description: "Tanggal Surat Pengantar dibuat",
+  }),
   createdDate: z.coerce
     .date({ description: "Tanggal Pembuatan Surat" })
     .default(new Date()),
 });
 
-export const SKJValidationFieldConfig = (
-  values: z.infer<typeof SKUFormSchema>,
-): FieldConfig<z.infer<typeof SKJValidationSchema>> => {
+export const SKUValidationFieldConfig = (
+  values: string,
+): FieldConfig<z.infer<typeof SKUValidationSchema>> => {
+  const form = parseToSchema(SKUFormSchema, values);
+
   return {
     jenisKelamin: {
       fieldType: "radio",
       inputProps: {
-        defaultValue: values.jenisKelamin,
+        defaultValue: form.jenisKelamin,
       },
     },
     agama: {
       inputProps: {
-        defaultValue: values.agama,
+        defaultValue: form.agama,
       },
     },
     pekerjaan: {
       inputProps: {
-        defaultValue: values.pekerjaan,
+        defaultValue: form.pekerjaan,
       },
     },
     pernikahan: {
       fieldType: "radio",
       inputProps: {
-        defaultValue: values.pernikahan,
+        defaultValue: form.pernikahan,
       },
     },
     alamatKtp: {
@@ -54,17 +61,9 @@ export const SKJValidationFieldConfig = (
     suratPengantarValue: {
       renderParent: ({ children }) => {
         return (
-          <div className="flex flex-col">
-            <div className="relative aspect-square h-[500px] w-fit">
-              <Image
-                fill
-                src={values.suratPengantar}
-                alt="Surat Pengantar"
-                className=" object-contain"
-              />
-            </div>
+          <PhotoPreview src={form.suratPengantar} title="Foto Surat Pengantar">
             {children}
-          </div>
+          </PhotoPreview>
         );
       },
       description: "Masukkan kode yang terdapat pada surat pengantar",

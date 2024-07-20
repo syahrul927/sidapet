@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import { FaDownload } from "react-icons/fa6";
-import { PiDownloadFill, PiFileArchive } from "react-icons/pi";
 import FormValidationProps from "~/components/document/validation";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
 } from "~/components/ui/card";
 import {
   Dialog,
@@ -23,10 +22,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "~/components/ui/dialog";
+import { useToast } from "~/components/ui/use-toast";
 import { ServicesDocument } from "~/data/service";
 import { fromNow } from "~/lib/utils";
 import { api } from "~/trpc/react";
 import generateDocument from "~/utils/generateDocument";
+import { useQueue } from "../hooks/use-queue";
 
 export interface RequestItemProps {
   name: string;
@@ -40,6 +41,8 @@ export interface RequestItemProps {
 }
 const RequestItem = (props: RequestItemProps) => {
   const [open, setOpen] = useState(false);
+  const { refetch } = useQueue();
+  const { toast } = useToast();
   const docType = ServicesDocument.find(
     (doc) => doc.code === props.documentCode,
   );
@@ -47,20 +50,38 @@ const RequestItem = (props: RequestItemProps) => {
     return <p>Tipe dokumen tidak valid</p>;
   }
   const { data } = api.document.getDetailRequest.useQuery(props.id);
-  const downloadFile = () => {
+  const { mutate, isPending } =
+    api.document.finishDocumentRequest.useMutation();
+  const downloadFile = async () => {
     try {
       if (data?.formatDocument) {
+        mutate(props.id);
         const parsed = docType.validationSchema.parse(
           JSON.parse(data.formatDocument),
         );
-        generateDocument({
-          documentCode: data.documentCode,
-          documentCounter: data.documentCounter,
-          ...parsed,
+        await generateDocument(
+          {
+            documentCode: data.documentCode,
+            documentCounter: data.documentCounter,
+            documentId: data.documentId,
+            ...parsed,
+          },
+          docType.templatePath,
+        );
+        toast({
+          title: "Sukses",
+          description:
+            "Berhasil download dokumen, silahkan cek folder Download pada komputer anda!",
         });
       }
     } catch (error) {
-      console.log("err", error);
+      toast({
+        title: "Gagal",
+        description: "Terjadi kesalahan ketika mendownload file!",
+        variant: "destructive",
+      });
+    } finally {
+      refetch();
     }
   };
   return (
@@ -87,45 +108,41 @@ const RequestItem = (props: RequestItemProps) => {
           </CardContent>
         </Card>
       </DialogTrigger>
-      <DialogContent className="max-h-[90vh] w-full max-w-screen-lg overflow-y-auto">
-        {props.status === "NEW" ? (
-          <>
-            <DialogHeader>
-              <DialogTitle>Konfirmasi Data</DialogTitle>
-              <DialogDescription>
-                Pastikan data yang di perlukan lengkap dan isi form yang berasal
-                dari gambar!
-              </DialogDescription>
-            </DialogHeader>
-            <FormValidationProps
-              data={props.formatDocument}
-              onSubmit={() => setOpen(false)}
-              docType={docType}
-              id={props.id}
-            />
-          </>
-        ) : (
-          <>
-            <>
-              <DialogHeader>
-                <DialogTitle>Konfirmasi Data</DialogTitle>
-                <DialogDescription>
-                  Pastikan data yang di perlukan lengkap dan isi form yang
-                  berasal dari gambar!
-                </DialogDescription>
-              </DialogHeader>
-              <DialogFooter>
-                <DialogClose>
-                  <Button onClick={() => downloadFile()}>
-                    Download&nbsp;&nbsp;
-                    <FaDownload />
-                  </Button>
-                </DialogClose>
-              </DialogFooter>
-            </>
-          </>
-        )}
-      </DialogContent>
+      {props.status === "NEW" ? (
+        <DialogContent className="max-h-[90vh] w-full max-w-screen-lg overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Konfirmasi</DialogTitle>
+            <DialogDescription>
+              Pastikan data yang di perlukan lengkap dan isi form yang berasal
+              dari gambar!
+            </DialogDescription>
+          </DialogHeader>
+          <FormValidationProps
+            data={props.formatDocument}
+            docType={docType}
+            id={props.id}
+          />
+        </DialogContent>
+      ) : (
+        <DialogContent className="max-h-[90vh] w-full max-w-xl overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Konfirmasi Data</DialogTitle>
+            <DialogDescription>
+              Setelah anda mendownload data akan di update menjadi{" "}
+              <span className="font-bold">DONE</span> dan data akan dipindahkan
+              ke histori (Abaikan jika sudah DONE).
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose>
+              <Button disabled={isPending} onClick={() => downloadFile()}>
+                Download&nbsp;&nbsp;
+                <FaDownload />
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      )}
     </Dialog>
   );
 };

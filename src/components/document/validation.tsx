@@ -3,30 +3,25 @@ import { z } from "zod";
 import AutoForm, { AutoFormSubmit } from "~/components/ui/auto-form";
 import { DynamicPropsArray } from "~/data/service";
 import { api } from "~/trpc/react";
-import generateDocument from "~/utils/generateDocument";
 import { useToast } from "../ui/use-toast";
+import { DialogClose } from "../ui/dialog";
+import { useQueue } from "~/app/(dashboard)/hooks/use-queue";
 
 interface FormValidationProps {
   docType: DynamicPropsArray;
   data: string;
   id: string;
-  onSubmit: () => void;
 }
-const FormValidationProps = ({
-  data,
-  docType,
-  id,
-  onSubmit: onClose,
-}: FormValidationProps) => {
+const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
   const values = docType.formSchema.parse(JSON.parse(data));
   const { toast } = useToast();
+  const { refetch } = useQueue();
   const { mutate } = api.document.validateRequest.useMutation({
     onSuccess: () => {
       toast({
         title: "Berhasil",
         description: "Data tervalidasi!",
       });
-      onClose();
     },
     onError: () => {
       toast({
@@ -38,16 +33,18 @@ const FormValidationProps = ({
   });
   const onSubmit = (values: z.infer<typeof docType.validationSchema>) => {
     mutate({ id, formatDocument: JSON.stringify(values) });
+    refetch();
   };
   return (
     <AutoForm
       onSubmit={onSubmit}
-      fieldConfig={docType.validationFieldConfig(values)}
+      fieldConfig={docType.validationFieldConfig(data)}
       values={values}
       formSchema={docType.validationSchema}
     >
-      {/* <p>{data}</p> */}
-      <AutoFormSubmit>Simpan</AutoFormSubmit>
+      <DialogClose>
+        <AutoFormSubmit>Simpan</AutoFormSubmit>
+      </DialogClose>
     </AutoForm>
   );
 };

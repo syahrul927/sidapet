@@ -1,8 +1,15 @@
-const PublicPage = () => {
+import DocumentServices from "~/components/document/services";
+import HeaderMobile from "./components/header-mobile";
+
+const CreateDocumentPublicPage = () => {
   return (
-    <div className="flex h-screen w-full items-center justify-center">
-      <h1>Public Page</h1>
-    </div>
+    <main className="" id="#">
+      <HeaderMobile />
+      <div className="flex flex-col p-3">
+        <h1 className="text-center">Pembuatan Surat Kel. Margahayu</h1>
+        <DocumentServices />
+      </div>
+    </main>
   );
 };
-export default PublicPage;
+export default CreateDocumentPublicPage;

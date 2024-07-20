@@ -1,19 +1,20 @@
+import { GiGraveFlowers } from "react-icons/gi";
 import { type IconType } from "react-icons/lib";
 import { PiHandCoinsDuotone } from "react-icons/pi";
 import { z } from "zod";
 import { FieldConfig } from "~/components/ui/auto-form/types";
-import { type ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
-import { SKJFormFieldConfig, SKUFormSchema } from "./sku/form";
+import { ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
+import { SKKFormFieldConfig, SKKFormSchema } from "./skk/form";
+import { SKKValidationFieldConfig, SKKValidationScema } from "./skk/validation";
+import { SKUFormFieldConfig, SKUFormSchema } from "./sku/form";
 import {
-  SKJValidationFieldConfig,
-  SKJValidationSchema,
+  SKUValidationFieldConfig,
+  SKUValidationSchema,
 } from "./sku/validation";
 
-// Collect schemas into an array
-const schemas = [SKUFormSchema] as const;
+const schemas = [SKUFormSchema, SKKFormSchema] as const;
 type SchemaUnion = (typeof schemas)[number];
-
-export interface ServicesDocumentProps<T extends ZodObjectOrWrapped> {
+export type ServicesDocumentProps<T extends ZodObjectOrWrapped> = {
   code: string;
   title: string;
   description?: string;
@@ -21,10 +22,11 @@ export interface ServicesDocumentProps<T extends ZodObjectOrWrapped> {
   formSchema: T;
   formFieldConfig: FieldConfig<z.infer<T>>;
   validationSchema: T;
-  validationFieldConfig: (values: z.infer<T>) => FieldConfig<z.infer<T>>;
+  validationFieldConfig: (values: string) => FieldConfig<z.infer<T>>;
   templatePath: string;
   documentId: string;
-}
+  notes?: string;
+};
 export type DynamicPropsArray = ServicesDocumentProps<SchemaUnion>;
 export const ServicesDocument: DynamicPropsArray[] = [
   {
@@ -32,48 +34,27 @@ export const ServicesDocument: DynamicPropsArray[] = [
     title: "Surat Keterangan Usaha",
     icon: PiHandCoinsDuotone,
     formSchema: SKUFormSchema,
-    formFieldConfig: SKJFormFieldConfig,
-    validationSchema: SKJValidationSchema,
-    validationFieldConfig: SKJValidationFieldConfig,
-    templatePath: "/template/templateSKU.docx",
+    formFieldConfig: SKUFormFieldConfig,
+    validationSchema: SKUValidationSchema,
+    validationFieldConfig: SKUValidationFieldConfig,
+    templatePath: "/template/SKU.docx",
     documentId: "553",
+    notes:
+      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP dan Surat Pengantar RT/RW",
   },
-  // {
-  //   code: "SKJ",
-  //   title: "Surat Keterangan Janda",
-  //   icon: PiGenderFemale,
-  //   formSchema: SKJFormSchema,
-  //   formValidationSchema: SKJFormValidationSchema,
-  //   templatePath: "/template/templateSKU.docx",
-  //   documentId: "550",
-  // },
-  // {
-  //   code: "SKD",
-  //   title: "Surat Keterangan Duda",
-  //   icon: PiGenderMale,
-  //   formSchema: SKJFormSchema,
-  //   formValidationSchema: SKJFormValidationSchema,
-  //   templatePath: "/template/templateSKU.docx",
-  //   documentId: "551",
-  // },
-  // {
-  //   code: "SKTM",
-  //   title: "Surat Keterangan Tidak Mampu",
-  //   icon: PiCoins,
-  //   formSchema: SKJFormSchema,
-  //   formValidationSchema: SKJFormValidationSchema,
-  //   templatePath: "/template/templateSKU.docx",
-  //   documentId: "552",
-  // },
-  // {
-  //   code: "SDTT",
-  //   title: "Surat Domisili Tempat Tinggal",
-  //   icon: PiHouseLine,
-  //   formSchema: SKJFormSchema,
-  //   formValidationSchema: SKJFormValidationSchema,
-  //   templatePath: "/template/templateSKU.docx",
-  //   documentId: "554",
-  // },
+  {
+    code: "SKK",
+    title: "Surat Keterangan Kematian",
+    icon: GiGraveFlowers,
+    formSchema: SKKFormSchema,
+    formFieldConfig: SKKFormFieldConfig,
+    validationSchema: SKKValidationScema,
+    validationFieldConfig: SKKValidationFieldConfig,
+    templatePath: "/template/SKK.docx",
+    documentId: "553",
+    notes:
+      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP dan Surat Pengantar RT/RW",
+  },
 ];
 export const MapServiceDocument = ServicesDocument.reduce(
   (acc, document) => {

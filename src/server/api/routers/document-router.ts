@@ -1,10 +1,29 @@
-import { z } from "zod";
-import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
-import { MapServiceDocument, ServicesDocument } from "~/data/service";
-import { TRPCError } from "@trpc/server";
 import { Status } from "@prisma/client";
+import { TRPCError } from "@trpc/server";
+import { z } from "zod";
+import { MapServiceDocument, ServicesDocument } from "~/data/service";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 const DocumentRouter = createTRPCRouter({
+  findHistoryDocument: protectedProcedure.query(async ({ ctx }) => {
+    const documents = await ctx.db.requestDocument.findMany({
+      where: {
+        status: Status.DONE,
+      },
+      select: {
+        id: true,
+        ownerName: true,
+        status: true,
+        documentConter: true,
+        documentCode: true,
+        createdDate: true,
+        formatDocument: true,
+      },
+    });
+    return documents.map((doc) => {
+      return { ...doc, title: MapServiceDocument[doc.documentCode]?.title };
+    });
+  }),
   createRequest: publicProcedure
     .input(
       z.object({
@@ -73,7 +92,7 @@ const DocumentRouter = createTRPCRouter({
     const documents = await ctx.db.requestDocument.findMany({
       where: {
         status: {
-          not: "DONE",
+          not: Status.DONE,
         },
       },
       select: {
@@ -106,7 +125,7 @@ const DocumentRouter = createTRPCRouter({
       if (!document) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: "Documen tidak valid",
+          message: "Dokumen tidak valid",
         });
       }
       const requestDocument = ctx.db.requestDocument.update({
@@ -115,7 +134,7 @@ const DocumentRouter = createTRPCRouter({
         },
         data: {
           formatDocument: JSON.parse(input.formatDocument),
-          status: "VALIDATED",
+          status: Status.VALIDATED,
         },
       });
       const historyDocument = ctx.db.requestDocumentHistory.create({
@@ -123,6 +142,37 @@ const DocumentRouter = createTRPCRouter({
           requestDocumentId: document.id,
           createdBy: ctx.session?.user.id ?? "PUBLIC",
           status: Status.VALIDATED,
+        },
+      });
+      await Promise.all([requestDocument, historyDocument]);
+    }),
+  finishDocumentRequest: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const document = await ctx.db.requestDocument.findUnique({
+        where: {
+          id: input,
+        },
+      });
+      if (!document) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Dokumen tidak valid",
+        });
+      }
+      const requestDocument = ctx.db.requestDocument.update({
+        where: {
+          id: input,
+        },
+        data: {
+          status: Status.DONE,
+        },
+      });
+      const historyDocument = ctx.db.requestDocumentHistory.create({
+        data: {
+          requestDocumentId: document.id,
+          createdBy: ctx.session?.user.id ?? "PUBLIC",
+          status: Status.DONE,
         },
       });
       await Promise.all([requestDocument, historyDocument]);
@@ -138,11 +188,12 @@ const DocumentRouter = createTRPCRouter({
       if (!document) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message: "Documen tidak valid",
+          message: "Dokumen tidak valid",
         });
       }
       return {
         documentCode: document.documentCode,
+        documentId: document.documentId,
         documentCounter: document.documentConter,
         formatDocument: JSON.stringify(document.formatDocument),
       };

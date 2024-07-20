@@ -1,7 +1,12 @@
 "use client";
-import { Form } from "~/components/ui/form";
+import { Form, FormMessage, useFormField } from "~/components/ui/form";
 import React from "react";
-import { type DefaultValues, type FormState, useForm } from "react-hook-form";
+import {
+  type DefaultValues,
+  type FormState,
+  useForm,
+  useFormContext,
+} from "react-hook-form";
 import { type z } from "zod";
 
 import { Button } from "~/components/ui/button";
@@ -15,6 +20,9 @@ import {
   getDefaultValues,
   getObjectFormSchema,
 } from "./utils";
+import { Alert, AlertDescription, AlertTitle } from "../alert";
+import { MessageCircleWarningIcon } from "lucide-react";
+import { error } from "console";
 
 export function AutoFormSubmit({
   children,
@@ -113,3 +121,21 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
 }
 
 export default AutoForm;
+
+export const AutoFormAlert = () => {
+  const {
+    formState: { errors },
+  } = useFormContext();
+  if (!Object.keys(errors).length) {
+    return <></>;
+  }
+  return (
+    <Alert variant={"destructive"}>
+      <MessageCircleWarningIcon />
+      <AlertTitle>Perhatian!</AlertTitle>
+      <AlertDescription>
+        Form belum terisi dengan benar, harap cek kembali!
+      </AlertDescription>
+    </Alert>
+  );
+};

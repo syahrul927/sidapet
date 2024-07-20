@@ -1,4 +1,6 @@
+import ListDoneRequest from "./components/list-done-request";
+
 const DoneDocumentPage = () => {
-  return <h1>Dokumen Selesai</h1>;
+  return <ListDoneRequest />;
 };
 export default DoneDocumentPage;

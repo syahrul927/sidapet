@@ -1,7 +1,7 @@
 // utils/generateDocument.ts
-import PizZip from "pizzip";
 import Docxtemplater from "docxtemplater";
 import { saveAs } from "file-saver";
+import PizZip from "pizzip";
 
 const fetchTemplate = async (url: string): Promise<ArrayBuffer> => {
   const response = await fetch(url);
@@ -14,10 +14,28 @@ const fetchTemplate = async (url: string): Promise<ArrayBuffer> => {
 const padDate = (str: string | number) => {
   return String(str).padStart(2, "0");
 };
-const generateDocument = async (data: any): Promise<void> => {
+const flatten = (obj: any): any => {
+  let result = {};
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const element = obj[key];
+      if (typeof element === "object") {
+        result = { ...result, ...element };
+      } else {
+        result = { ...result, [key]: element };
+      }
+    }
+  }
+  return result;
+};
+const generateDocument = async (
+  values: any,
+  templateUrl: string,
+): Promise<void> => {
+  const data = flatten(values);
   const fixData: { [keyof: string]: string } = {};
   for (const key in data) {
-    if (Object.prototype.hasOwnProperty.call(data, key)) {
+    if (Object.hasOwn(data, key)) {
       const element = data[key];
       if (element instanceof Date) {
         fixData[key] =
@@ -27,7 +45,6 @@ const generateDocument = async (data: any): Promise<void> => {
       }
     }
   }
-  const templateUrl = "/template/SKU.docx";
   const templateArrayBuffer = await fetchTemplate(templateUrl);
   const zip = new PizZip(templateArrayBuffer);
   const doc = new Docxtemplater(zip, {

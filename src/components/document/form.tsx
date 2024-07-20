@@ -1,6 +1,10 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { TypeOf, z } from "zod";
-import AutoForm, { AutoFormSubmit } from "~/components/ui/auto-form";
+import AutoForm, {
+  AutoFormAlert,
+  AutoFormSubmit,
+} from "~/components/ui/auto-form";
 import {
   Card,
   CardContent,
@@ -12,7 +16,6 @@ import { api } from "~/trpc/react";
 import { FieldConfig } from "../ui/auto-form/types";
 import { ZodObjectOrWrapped } from "../ui/auto-form/utils";
 import { useToast } from "../ui/use-toast";
-import { useRouter } from "next/navigation";
 
 interface ServiceFormDocumentProps<T extends ZodObjectOrWrapped> {
   title: string;
@@ -32,7 +35,7 @@ const ServiceFormDocument = <T extends ZodObjectOrWrapped>(
         title: "Berhasil",
         description: "Berhasil membuat request dokumen",
       });
-      void router.push("/document/create");
+      router.push("/document/create");
     },
     onError: () => {
       toast({
@@ -40,7 +43,7 @@ const ServiceFormDocument = <T extends ZodObjectOrWrapped>(
         description: "Data gagal dibuat!",
         variant: "destructive",
       });
-      void router.push("/document/create");
+      router.push("/document/create");
     },
   });
   const onSubmit = (values: TypeOf<T>) => {
@@ -66,6 +69,7 @@ const ServiceFormDocument = <T extends ZodObjectOrWrapped>(
           onSubmit={onSubmit}
           fieldConfig={props.fieldConfig}
         >
+          <AutoFormAlert />
           <AutoFormSubmit disabled={isPending}>Simpan</AutoFormSubmit>
         </AutoForm>
       </CardContent>

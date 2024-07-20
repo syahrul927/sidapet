@@ -1,49 +1,24 @@
 "use client";
 
-import { useMemo } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { api } from "~/trpc/react";
 import RequestItem, { RequestItemProps } from "./request-document-item";
-const QueueDocument = () => {
-  const { data, isPending } = api.document.getWaitingRequest.useQuery(
-    undefined,
-    {
-      refetchOnMount: true,
-    },
-  );
-  const listNew: RequestItemProps[] = useMemo(
-    () =>
-      data
-        ?.filter((item) => item.status === "NEW")
-        .map((item) => ({
-          documentCounter: item.documentConter,
-          name: item.ownerName ?? "",
-          documentType: item.title ?? "",
-          documentCode: item.documentCode,
-          formatDocument: JSON.stringify(item.formatDocument) ?? "",
-          createdDate: item.createdDate,
-          status: item.status,
-          id: item.id,
-        })) ?? [],
+import { useQueue } from "../hooks/use-queue";
+import { RouterOutputs } from "~/trpc/react";
 
-    [data],
-  );
-  const listValidated: RequestItemProps[] = useMemo(
-    () =>
-      data
-        ?.filter((item) => item.status === "VALIDATED")
-        .map((item) => ({
-          id: item.id,
-          documentCounter: item.documentConter,
-          name: item.ownerName ?? "",
-          documentType: item.title ?? "",
-          documentCode: item.documentCode,
-          formatDocument: JSON.stringify(item.formatDocument) ?? "",
-          createdDate: item.createdDate,
-          status: item.status,
-        })) ?? [],
-    [data],
-  );
+const mapper = (list: RouterOutputs["document"]["getWaitingRequest"]) => {
+  return list.map((item) => ({
+    documentCounter: item.documentConter,
+    name: item.ownerName ?? "",
+    documentType: item.title ?? "",
+    documentCode: item.documentCode,
+    formatDocument: JSON.stringify(item.formatDocument) ?? "",
+    createdDate: item.createdDate,
+    status: item.status,
+    id: item.id,
+  }));
+};
+const QueueDocument = () => {
+  const { isPending, listNew, listValidated } = useQueue();
   return (
     <div className="flex flex-col">
       <Tabs defaultValue="NEW">
@@ -56,30 +31,10 @@ const QueueDocument = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="NEW">
-          {isPending ? (
-            <div className="flex h-48 w-full items-center justify-center">
-              <p>Loading...</p>
-            </div>
-          ) : listNew.length ? (
-            <ListRequest data={listNew} />
-          ) : (
-            <div className="flex h-48 w-full items-center justify-center">
-              <p>Belum ada data request masuk</p>
-            </div>
-          )}
+          <ListRequest data={mapper(listNew)} isPending={isPending} />
         </TabsContent>
         <TabsContent value="VALIDATED">
-          {isPending ? (
-            <div className="flex h-48 w-full items-center justify-center">
-              <p>Loading...</p>
-            </div>
-          ) : listValidated.length ? (
-            <ListRequest data={listValidated} />
-          ) : (
-            <div className="flex h-48 w-full items-center justify-center">
-              <p>Belum ada data request masuk</p>
-            </div>
-          )}
+          <ListRequest data={mapper(listValidated)} isPending={isPending} />
         </TabsContent>
       </Tabs>
     </div>
@@ -89,11 +44,26 @@ export default QueueDocument;
 
 interface ListRequestProps {
   data: RequestItemProps[];
+  isPending?: boolean;
 }
-const ListRequest = (props: ListRequestProps) => {
+const ListRequest = ({ isPending, data }: ListRequestProps) => {
+  if (isPending) {
+    return (
+      <div className="flex h-48 w-full items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+  if (!data.length) {
+    return (
+      <div className="flex h-48 w-full items-center justify-center">
+        <p>Belum ada data request masuk</p>
+      </div>
+    );
+  }
   return (
-    <div className="flex flex-col space-y-2">
-      {props.data.map((item) => (
+    <div className="flex flex-col space-y-3">
+      {data.map((item) => (
         <RequestItem {...item} key={item.id} />
       ))}
     </div>
