@@ -18,9 +18,10 @@ export const SKKValidationFieldConfig = (
   return {
     jenazah: {
       jenisKelaminJenazah: {
-        inputProps: {
-          defaultValue: form.jenazah.jenisKelaminJenazah,
-        },
+        fieldType: "radio",
+      },
+      jamKematianJenazah: {
+        fieldType: "datetime",
       },
       agamaJenazah: {
         inputProps: {

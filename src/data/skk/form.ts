@@ -21,9 +21,7 @@ export const SKKFormSchema = BasicSchema.extend({
     alamatJenazah: z.string(),
     anakKeJenazah: z.number({ description: "Anak ke" }),
     tanggalKematianJenazah: z.coerce.date({ description: "Tanggal Kematian" }),
-    // jamKematianJenazah: z
-    //   .date()
-    //   .transform((date) => `${date.getHours()}:${date.getMinutes()}`),
+    jamKematianJenazah: z.coerce.date(),
     sebabKematian: z.string(),
     tempatKematian: z.string(),
     yangMenerangkan: z.string(),
@@ -72,6 +70,9 @@ export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
   jenazah: {
     jenisKelaminJenazah: {
       fieldType: "radio",
+    },
+    jamKematianJenazah: {
+      fieldType: "datetime",
     },
     alamatJenazah: {
       fieldType: "textarea",

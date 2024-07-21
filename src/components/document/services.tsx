@@ -3,23 +3,28 @@ import { type IconType } from "react-icons/lib";
 import { RiArrowRightUpLine } from "react-icons/ri";
 import { ServicesDocument } from "~/data/service";
 
-const DocumentServices = () => {
+interface DocumentServicesProps {
+  isPublic?: boolean;
+}
+const DocumentServices = ({ isPublic }: DocumentServicesProps) => {
   return (
     <div className="grid w-full gap-3 py-3 lg:grid-cols-2 xl:grid-cols-3">
       {ServicesDocument.map((service) => (
-        <ServiceItem key={service.code} {...service} />
+        <ServiceItem isPublic={isPublic} key={service.code} {...service} />
       ))}
     </div>
   );
 };
 export default DocumentServices;
 const ServiceItem = (props: {
+  isPublic?: boolean;
   title: string;
   icon: IconType;
   code: string;
 }) => {
+  const prefixUrl = props.isPublic ? "/public/create/" : "/document/create/";
   return (
-    <Link href={`/document/create/${props.code}`}>
+    <Link href={`${prefixUrl}${props.code}`}>
       <div className="relative flex min-h-32 cursor-pointer flex-col justify-center rounded-lg border bg-card p-3 transition-colors duration-150 hover:bg-primary hover:text-primary-foreground ">
         <div className="absolute right-3 top-3 w-fit">
           <RiArrowRightUpLine size={24} />

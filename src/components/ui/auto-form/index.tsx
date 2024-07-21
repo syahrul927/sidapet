@@ -50,7 +50,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
   children,
   className,
   dependencies,
-}: {
+}: Readonly<{
   formSchema: SchemaType;
   values?: Partial<z.infer<SchemaType>>;
   onValuesChange?: (values: Partial<z.infer<SchemaType>>) => void;
@@ -62,7 +62,7 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
     | ((formState: FormState<z.infer<SchemaType>>) => React.ReactNode);
   className?: string;
   dependencies?: Dependency<z.infer<SchemaType>>[];
-}) {
+}>) {
   const objectFormSchema = getObjectFormSchema(formSchema);
   const defaultValues: DefaultValues<z.infer<typeof objectFormSchema>> | null =
     getDefaultValues(objectFormSchema, fieldConfig);
@@ -79,7 +79,6 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
       onSubmitProp?.(parsedValues.data);
     }
   }
-
   const values = form.watch();
   // valuesString is needed because form.watch() returns a new object every time
   const valuesString = JSON.stringify(values);
@@ -112,7 +111,6 @@ function AutoForm<SchemaType extends ZodObjectOrWrapped>({
             dependencies={dependencies}
             fieldConfig={fieldConfig}
           />
-
           {renderChildren}
         </form>
       </Form>

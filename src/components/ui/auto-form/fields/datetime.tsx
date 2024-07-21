@@ -1,12 +1,11 @@
 "use client";
-import { DatePicker } from "~/components/ui/date-picker";
 import { FormControl, FormItem, FormMessage } from "~/components/ui/form";
+import { TimePicker } from "../../datetime-picker";
 import AutoFormLabel from "../common/label";
 import AutoFormTooltip from "../common/tooltip";
 import { type AutoFormInputComponentProps } from "../types";
-import { DateTimePicker } from "../../datetime-picker";
 
-export default function AutoFormDate({
+export default function AutoFormDateTime({
   label,
   isRequired,
   field,
@@ -20,11 +19,14 @@ export default function AutoFormDate({
         isRequired={isRequired}
       />
       <FormControl>
-        <DatePicker
-          date={field.value}
-          setDate={field.onChange}
-          {...fieldProps}
-        />
+        <div className="flex">
+          <TimePicker
+            hourCycle={24}
+            date={field.value}
+            setDate={field.onChange}
+            {...fieldProps}
+          />
+        </div>
       </FormControl>
       <AutoFormTooltip fieldConfigItem={fieldConfigItem} />
 
