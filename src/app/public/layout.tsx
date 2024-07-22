@@ -11,7 +11,7 @@ export const viewport: Viewport = {
 const LayoutPublic = ({ children }: { children: ReactNode }) => {
   return (
     <main className="relative">
-      <div className="fixed inset-0 -z-10 bg-gradient-to-b from-accent/20 to-primary/20"></div>
+      <div className="fixed inset-0 -z-10"></div>
       <HeaderMobile />
       <div className="md:container md:mt-12">{children}</div>
     </main>

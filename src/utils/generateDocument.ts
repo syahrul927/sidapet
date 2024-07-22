@@ -2,6 +2,7 @@
 import Docxtemplater from "docxtemplater";
 import { saveAs } from "file-saver";
 import PizZip from "pizzip";
+import { formatDate } from "~/lib/utils";
 
 const fetchTemplate = async (url: string): Promise<ArrayBuffer> => {
   const response = await fetch(url);
@@ -11,15 +12,12 @@ const fetchTemplate = async (url: string): Promise<ArrayBuffer> => {
   return response.arrayBuffer();
 };
 
-const padDate = (str: string | number) => {
-  return String(str).padStart(2, "0");
-};
 const flatten = (obj: any): any => {
   let result = {};
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const element = obj[key];
-      if (typeof element === "object") {
+      if (typeof element === "object" && !(element instanceof Date)) {
         result = { ...result, ...element };
       } else {
         result = { ...result, [key]: element };
@@ -33,13 +31,12 @@ const generateDocument = async (
   templateUrl: string,
 ): Promise<void> => {
   const data = flatten(values);
-  const fixData: { [keyof: string]: string } = {};
+  const fixData: Record<string, any> = {};
   for (const key in data) {
     if (Object.hasOwn(data, key)) {
       const element = data[key];
       if (element instanceof Date) {
-        fixData[key] =
-          `${padDate(element.getDate())}/${padDate(element.getMonth() + 1)}/${element.getFullYear()}`;
+        fixData[key] = formatDate(element);
       } else {
         fixData[key] = element;
       }

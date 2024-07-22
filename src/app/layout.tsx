@@ -3,10 +3,10 @@ import "~/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 
 import { TailwindIndicator } from "~/components/ui/tailwind-indicator";
+import { ThemeProvider } from "~/components/ui/theme-provider";
 import { Toaster } from "~/components/ui/toaster";
 import { TRPCReactProvider } from "~/trpc/react";
 import NextAuthProvider from "./context/nextauth-provider";
-import { ThemeProvider } from "~/components/ui/theme-provider";
 
 export const metadata = {
   title: "SIDAPET",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body className="">
+      <body className="relative">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <NextAuthProvider>
             <TRPCReactProvider>{children}</TRPCReactProvider>

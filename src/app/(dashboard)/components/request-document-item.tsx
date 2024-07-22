@@ -50,8 +50,11 @@ const RequestItem = (props: RequestItemProps) => {
     return <p>Tipe dokumen tidak valid</p>;
   }
   const { data } = api.document.getDetailRequest.useQuery(props.id);
-  const { mutate, isPending } =
-    api.document.finishDocumentRequest.useMutation();
+  const { mutate, isPending } = api.document.finishDocumentRequest.useMutation({
+    onSettled: () => {
+      refetch();
+    },
+  });
   const downloadFile = async () => {
     try {
       if (data?.formatDocument) {
@@ -59,6 +62,7 @@ const RequestItem = (props: RequestItemProps) => {
         const parsed = docType.validationSchema.parse(
           JSON.parse(data.formatDocument),
         );
+        console.log("parsed ", parsed);
         await generateDocument(
           {
             documentCode: data.documentCode,
@@ -80,8 +84,6 @@ const RequestItem = (props: RequestItemProps) => {
         description: "Terjadi kesalahan ketika mendownload file!",
         variant: "destructive",
       });
-    } finally {
-      refetch();
     }
   };
   return (

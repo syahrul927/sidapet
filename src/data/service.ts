@@ -61,5 +61,5 @@ export const MapServiceDocument = ServicesDocument.reduce(
     acc[document.code] = document;
     return acc;
   },
-  {} as { [key: string]: DynamicPropsArray },
+  {} as Record<string, DynamicPropsArray>,
 );

@@ -11,3 +11,10 @@ export function fromNow(date: Date) {
   formatted.locale("id");
   return formatted.fromNow();
 }
+
+const padDate = (str: string | number) => {
+  return String(str).padStart(2, "0");
+};
+export function formatDate(element: Date) {
+  return `${padDate(element.getDate())}/${padDate(element.getMonth() + 1)}/${element.getFullYear()}`;
+}

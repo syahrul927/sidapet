@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode, createContext, useContext, useMemo } from "react";
-import { RouterOutputs, api } from "~/trpc/react";
+import { type ReactNode, createContext, useContext, useMemo } from "react";
+import { type RouterOutputs, api } from "~/trpc/react";
 
 type Queue = RouterOutputs["document"]["getWaitingRequest"];
 type QueueType = {

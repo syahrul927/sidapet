@@ -1,6 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { TypeOf, z } from "zod";
+import { type TypeOf, type z } from "zod";
 import AutoForm, {
   AutoFormAlert,
   AutoFormSubmit,
@@ -12,46 +11,37 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { api } from "~/trpc/react";
-import { FieldConfig } from "../ui/auto-form/types";
-import { ZodObjectOrWrapped } from "../ui/auto-form/utils";
-import { useToast } from "../ui/use-toast";
+import { api, type RouterOutputs } from "~/trpc/react";
+import { type FieldConfig } from "../ui/auto-form/types";
+import { type ZodObjectOrWrapped } from "../ui/auto-form/utils";
 
+type ResponseSuccess = RouterOutputs["document"]["createRequest"];
 interface ServiceFormDocumentProps<T extends ZodObjectOrWrapped> {
   title: string;
   description?: string;
   code: string;
   schema: T;
   fieldConfig?: FieldConfig<z.infer<T>>;
+  onSuccess: (response: ResponseSuccess) => void;
+  onError: () => void;
 }
 const ServiceFormDocument = <T extends ZodObjectOrWrapped>(
   props: ServiceFormDocumentProps<T>,
 ) => {
-  const { toast } = useToast();
-  const router = useRouter();
   const { mutate, isPending } = api.document.createRequest.useMutation({
-    onSuccess: () => {
-      toast({
-        title: "Berhasil",
-        description: "Berhasil membuat request dokumen",
-      });
-      router.push("/document/create");
+    onSuccess: (response) => {
+      props.onSuccess(response);
     },
     onError: () => {
-      toast({
-        title: "Gagal",
-        description: "Data gagal dibuat!",
-        variant: "destructive",
-      });
-      router.push("/document/create");
+      props.onError();
     },
   });
   const onSubmit = (values: TypeOf<T>) => {
     mutate({
       formatDocument: JSON.stringify(values),
       code: props.code,
-      ownerName: values["name"],
-      ownerPhone: values["phoneNumber"],
+      ownerName: values.name,
+      ownerPhone: values.phoneNumber,
     });
   };
   return (

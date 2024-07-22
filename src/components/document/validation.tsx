@@ -1,11 +1,11 @@
 "use client";
-import { z } from "zod";
-import AutoForm, { AutoFormSubmit } from "~/components/ui/auto-form";
-import { DynamicPropsArray } from "~/data/service";
-import { api } from "~/trpc/react";
-import { useToast } from "../ui/use-toast";
-import { DialogClose } from "../ui/dialog";
+import { type z } from "zod";
 import { useQueue } from "~/app/(dashboard)/hooks/use-queue";
+import AutoForm, { AutoFormSubmit } from "~/components/ui/auto-form";
+import { type DynamicPropsArray } from "~/data/service";
+import { api } from "~/trpc/react";
+import { DialogClose } from "../ui/dialog";
+import { useToast } from "../ui/use-toast";
 
 interface FormValidationProps {
   docType: DynamicPropsArray;
@@ -22,6 +22,7 @@ const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
         title: "Berhasil",
         description: "Data tervalidasi!",
       });
+      refetch();
     },
     onError: () => {
       toast({
@@ -29,11 +30,11 @@ const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
         description: "Data gagal tervalidasi! Silahkan reload web",
         variant: "destructive",
       });
+      refetch();
     },
   });
   const onSubmit = (values: z.infer<typeof docType.validationSchema>) => {
     mutate({ id, formatDocument: JSON.stringify(values) });
-    refetch();
   };
   return (
     <AutoForm

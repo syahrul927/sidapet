@@ -86,7 +86,10 @@ const DocumentRouter = createTRPCRouter({
           code: docType.code,
         },
       });
-      await Promise.all([createDocument, increaseDoc]);
+      const data = await Promise.all([createDocument, increaseDoc]);
+      return {
+        requestId: data[0].id,
+      };
     }),
   getWaitingRequest: protectedProcedure.query(async ({ ctx }) => {
     const documents = await ctx.db.requestDocument.findMany({
@@ -196,6 +199,29 @@ const DocumentRouter = createTRPCRouter({
         documentId: document.documentId,
         documentCounter: document.documentConter,
         formatDocument: JSON.stringify(document.formatDocument),
+      };
+    }),
+  getStatusRequest: publicProcedure
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const document = await ctx.db.requestDocument.findUnique({
+        where: {
+          id: input,
+        },
+      });
+      if (!document) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Dokumen tidak valid",
+        });
+      }
+      const docType = MapServiceDocument[document.documentCode];
+      return {
+        title: docType?.title,
+        counter: document.documentConter,
+        name: document.ownerName,
+        status: document.status,
+        notes: docType?.notes,
       };
     }),
 });

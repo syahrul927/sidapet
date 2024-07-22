@@ -1,6 +1,6 @@
 "use client";
 import { z } from "zod";
-import { FieldConfig } from "~/components/ui/auto-form/types";
+import { type FieldConfig } from "~/components/ui/auto-form/types";
 import { SKKFormSchema } from "./form";
 import { parseToSchema } from "~/utils/json-utils";
 

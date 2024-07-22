@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import PhotoPreview from "~/components/document/photo-preview";
-import { FieldConfig } from "~/components/ui/auto-form/types";
+import { type FieldConfig } from "~/components/ui/auto-form/types";
 import { SKUFormSchema } from "./form";
 import { parseToSchema } from "~/utils/json-utils";
 
@@ -21,7 +21,6 @@ export const SKUValidationFieldConfig = (
   values: string,
 ): FieldConfig<z.infer<typeof SKUValidationSchema>> => {
   const form = parseToSchema(SKUFormSchema, values);
-
   return {
     jenisKelamin: {
       fieldType: "radio",

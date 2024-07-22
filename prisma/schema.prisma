@@ -48,6 +48,8 @@ model RequestDocument {
     createdBy              String
     updatedBy              String
     RequestDocumentHistory RequestDocumentHistory[]
+
+    @@index([status, createdDate])
 }
 
 model RequestDocumentHistory {
