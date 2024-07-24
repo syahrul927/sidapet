@@ -4,8 +4,10 @@ import { useQueue } from "~/app/(dashboard)/hooks/use-queue";
 import AutoForm, { AutoFormSubmit } from "~/components/ui/auto-form";
 import { type DynamicPropsArray } from "~/data/service";
 import { api } from "~/trpc/react";
-import { DialogClose } from "../ui/dialog";
+import { DialogClose, DialogFooter } from "../ui/dialog";
 import { useToast } from "../ui/use-toast";
+import { Button } from "../ui/button";
+import { FaWhatsapp } from "react-icons/fa6";
 
 interface FormValidationProps {
   docType: DynamicPropsArray;
@@ -42,10 +44,19 @@ const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
       fieldConfig={docType.validationFieldConfig(data)}
       values={values}
       formSchema={docType.validationSchema}
+      className="max-w-xs md:w-full md:max-w-full"
     >
-      <DialogClose>
-        <AutoFormSubmit>Simpan</AutoFormSubmit>
-      </DialogClose>
+      <DialogFooter className="flex-row gap-2">
+        <DialogClose>
+          <Button variant={"outline"}>
+            <FaWhatsapp />
+            &nbsp;Hubungi Pemilik Surat
+          </Button>
+        </DialogClose>
+        <DialogClose>
+          <AutoFormSubmit>Simpan</AutoFormSubmit>
+        </DialogClose>
+      </DialogFooter>
     </AutoForm>
   );
 };

@@ -23,7 +23,7 @@ const ButtonCopyUrl = () => {
 
   return (
     <Button onClick={() => copyToClipboard(currentUrl)}>
-      Copy Link&nbsp;
+      Simpan Link&nbsp;
       <RiFileCopyFill />
     </Button>
   );

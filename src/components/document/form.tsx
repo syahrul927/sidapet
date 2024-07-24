@@ -51,7 +51,7 @@ const ServiceFormDocument = <T extends ZodObjectOrWrapped>(
         <CardDescription>
           {props.description ??
             "Silahkan lengkapi data form dibawah untuk pembuatan surat dokumen."}
-        </CardDescription>{" "}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <AutoForm

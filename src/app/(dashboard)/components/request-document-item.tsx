@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { FaDownload } from "react-icons/fa6";
+import { FaDownload, FaWhatsapp } from "react-icons/fa6";
 import FormValidationProps from "~/components/document/validation";
 import { Badge } from "~/components/ui/badge";
 import { Button } from "~/components/ui/button";
@@ -28,6 +28,8 @@ import { fromNow } from "~/lib/utils";
 import { api } from "~/trpc/react";
 import generateDocument from "~/utils/generateDocument";
 import { useQueue } from "../hooks/use-queue";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { PiWarningCircleBold } from "react-icons/pi";
 
 export interface RequestItemProps {
   name: string;
@@ -62,7 +64,6 @@ const RequestItem = (props: RequestItemProps) => {
         const parsed = docType.validationSchema.parse(
           JSON.parse(data.formatDocument),
         );
-        console.log("parsed ", parsed);
         await generateDocument(
           {
             documentCode: data.documentCode,
@@ -111,7 +112,7 @@ const RequestItem = (props: RequestItemProps) => {
         </Card>
       </DialogTrigger>
       {props.status === "NEW" ? (
-        <DialogContent className="max-h-[90vh] w-full max-w-screen-lg overflow-y-auto">
+        <DialogContent className="max-h-[90vh] w-full overflow-y-auto md:max-w-screen-lg">
           <DialogHeader>
             <DialogTitle>Konfirmasi</DialogTitle>
             <DialogDescription>
@@ -136,6 +137,12 @@ const RequestItem = (props: RequestItemProps) => {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
+            <DialogClose>
+              <Button variant={"outline"}>
+                <FaWhatsapp />
+                &nbsp;Hubungi Pemilik Surat
+              </Button>
+            </DialogClose>
             <DialogClose>
               <Button disabled={isPending} onClick={() => downloadFile()}>
                 Download&nbsp;&nbsp;

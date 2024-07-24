@@ -1,6 +1,8 @@
 "use client";
 import { redirect, useRouter } from "next/navigation";
+import { PiWarningCircleBold } from "react-icons/pi";
 import ServiceFormDocument from "~/components/document/form";
+import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
 import { useToast } from "~/components/ui/use-toast";
 import { ServicesDocument } from "~/data/service";
 import { type PageType } from "~/types/page-type";
@@ -29,14 +31,21 @@ const DocumentCreateService = ({ params }: PageType) => {
     router.push("/public/");
   };
   return (
-    <ServiceFormDocument
-      onError={onError}
-      onSuccess={onSuccess}
-      code={slug}
-      schema={docType.formSchema}
-      title={docType.title}
-      fieldConfig={docType.formFieldConfig}
-    />
+    <>
+      <Alert variant={"destructive"}>
+        <PiWarningCircleBold />
+        <AlertTitle className="text-sm">Perhatian</AlertTitle>
+        <AlertDescription className="text-xs">{docType.notes}</AlertDescription>
+      </Alert>
+      <ServiceFormDocument
+        onError={onError}
+        onSuccess={onSuccess}
+        code={slug}
+        schema={docType.formSchema}
+        title={docType.title}
+        fieldConfig={docType.formFieldConfig}
+      />
+    </>
   );
 };
 export default DocumentCreateService;
