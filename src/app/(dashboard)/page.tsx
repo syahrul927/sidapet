@@ -1,4 +1,3 @@
-"use client";
 import LayoutDashboard from "~/components/dashboard/layout-dashboard";
 
 import QueueDocument from "./components/queue-document";
