@@ -3,20 +3,8 @@
 import { useMemo } from "react";
 import { MapServiceDocument } from "~/data/service";
 import { RequestItemProps } from "./type";
-import dynamic from "next/dynamic";
-import { LoaderCircleIcon } from "lucide-react";
-
-const RequestDialogNew = dynamic(() => import("./request-dialog-new"), {
-  ssr: false,
-  loading: () => <LoaderCircleIcon className="animate-spin" size={32} />,
-});
-const RequestDialogValidated = dynamic(
-  () => import("./request-dialog-validated"),
-  {
-    ssr: false,
-    loading: () => <LoaderCircleIcon className="animate-spin" size={32} />,
-  },
-);
+import RequestDialogNew from "./request-dialog-new";
+import RequestDialogValidated from "./request-dialog-validated";
 
 const RequestItem = (props: RequestItemProps) => {
   const docType = useMemo(

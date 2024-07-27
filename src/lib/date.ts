@@ -13,3 +13,7 @@ const padDate = (str: string | number) => {
 export function formatDate(element: Date) {
   return `${padDate(element.getDate())}/${padDate(element.getMonth() + 1)}/${element.getFullYear()}`;
 }
+
+export function formatHour(element: Date) {
+  return `${padDate(element.getHours())}:${padDate(element.getMinutes())}`;
+}

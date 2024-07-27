@@ -1,5 +1,5 @@
-import { GhostIcon } from "lucide-react";
 import Link from "next/link";
+import Logo from "~/components/dashboard/logo";
 
 const HeaderMobile = () => {
   return (
@@ -9,7 +9,8 @@ const HeaderMobile = () => {
           href="/public"
           className="flex items-center gap-1 rounded-lg py-1.5"
         >
-          <GhostIcon className="h-6 w-6 animate-pulse" />
+          <Logo />
+          {/* <GhostIcon className="h-6 w-6 animate-pulse" /> */}
           <span className="font-mono font-bold">SIDAPET</span>
         </Link>
       </nav>

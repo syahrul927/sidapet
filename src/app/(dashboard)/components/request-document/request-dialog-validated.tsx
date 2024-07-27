@@ -17,7 +17,8 @@ import { useQueue } from "../../hooks/use-queue";
 import { useToast } from "~/components/ui/use-toast";
 import { api } from "~/trpc/react";
 import generateDocument from "~/utils/generateDocument";
-import WhatsappIcon from "~/components/ui/whatsapp-icon";
+import { useMemo } from "react";
+import WhatsappButton from "~/components/ui/whatsapp-button";
 
 interface Props extends RequestItemProps {
   docType: DynamicPropsArray;
@@ -32,14 +33,19 @@ const RequestDialogValidated = (props: Props) => {
       refetch();
     },
   });
+  const parsed = useMemo(() => {
+    if (data) {
+      return props.docType?.validationSchema.parse(
+        JSON.parse(data.formatDocument),
+      );
+    }
+    return;
+  }, [data]);
 
   const downloadFile = async () => {
     try {
-      if (data?.formatDocument) {
+      if (data) {
         mutate(props.id);
-        const parsed = props.docType?.validationSchema.parse(
-          JSON.parse(data.formatDocument),
-        );
         await generateDocument(
           {
             documentCode: data.documentCode,
@@ -74,7 +80,7 @@ const RequestDialogValidated = (props: Props) => {
         status={props.status}
       />
 
-      <DialogContent className="max-h-[90vh] w-full max-w-xl overflow-y-auto">
+      <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Konfirmasi Data</DialogTitle>
           <DialogDescription>
@@ -85,10 +91,13 @@ const RequestDialogValidated = (props: Props) => {
         </DialogHeader>
         <DialogFooter>
           <DialogClose>
-            <Button variant="outline">
-              <WhatsappIcon />
-              &nbsp;Hubungi Pemilik Surat
-            </Button>
+            {parsed ? (
+              <WhatsappButton
+                phoneNumber={parsed?.phoneNumber}
+                name={parsed?.name}
+                title={props.docType.title}
+              />
+            ) : null}
           </DialogClose>
           <DialogClose>
             <Button disabled={false} onClick={downloadFile}>

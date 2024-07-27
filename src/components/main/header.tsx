@@ -1,15 +1,16 @@
 import {
   CheckCircleIcon,
-  GhostIcon,
   Menu,
   PlusCircleIcon,
   UsersIcon,
   type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import Logo from "../dashboard/logo";
+import { Button, buttonVariants } from "../ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import DropdownAccount from "./dropdown-account";
+import { cn } from "~/lib/cn";
 
 const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
   {
@@ -34,10 +35,13 @@ const Header = () => {
       <nav className="hidden flex-col gap-5 text-lg font-medium md:flex md:flex-row md:items-center md:text-sm ">
         <Link
           href="/"
-          className="flex items-center gap-1 rounded-lg px-3 py-1.5"
+          className={cn(
+            "flex items-center gap-1 rounded-lg px-3 py-1.5 font-mono text-base font-semibold transition-all hover:text-xl hover:font-extrabold",
+          )}
         >
-          <GhostIcon className="h-6 w-6 animate-pulse" />
-          <span className="font-mono font-bold">SIDAPET</span>
+          <Logo />
+          {/* <GhostIcon className="h-6 w-6 animate-pulse" /> */}
+          <span>SIDAPET</span>
         </Link>
         {MenuItems.map((menu) => (
           <Link key={menu.label} href={menu.href} className="">
@@ -58,7 +62,8 @@ const Header = () => {
           <nav className="grid gap-6 text-lg font-medium">
             <SheetClose asChild>
               <Link href="/" className="flex gap-2 text-lg font-semibold">
-                <GhostIcon className="h-6 w-6" />
+                <Logo />
+                {/* <GhostIcon className="h-6 w-6" /> */}
                 <span className="font-mono font-bold">SIDAPET</span>
               </Link>
             </SheetClose>

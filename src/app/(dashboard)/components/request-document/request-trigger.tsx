@@ -26,7 +26,9 @@ const RequestTriggerDocument = (props: Props) => {
             <CardTitle className="text-lg">{props.documentType}</CardTitle>
             <CardDescription className="text-sm">{props.name}</CardDescription>
           </div>
-          <p className="text-muted-foreground">{fromNow(props.createdDate)}</p>
+          <p className="text-sm text-muted-foreground sm:text-base">
+            {fromNow(props.createdDate)}
+          </p>
         </CardHeader>
         <CardContent className="gap-1 space-x-1 px-4">
           <Badge variant={props.status === "NEW" ? "accent" : "default"}>

@@ -1,4 +1,6 @@
 "use client";
+import dynamic from "next/dynamic";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,16 +8,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
+import LoadingPage from "~/components/ui/loading-page";
 import { DynamicPropsArray } from "~/data/service";
 import RequestTriggerDocument from "./request-trigger";
 import { RequestItemProps } from "./type";
-import dynamic from "next/dynamic";
-import { useState } from "react";
 
 const FormValidationProps = dynamic(
   () => import("~/components/document/validation"),
   {
     ssr: false,
+    loading: () => <LoadingPage />,
   },
 );
 
@@ -34,7 +36,7 @@ const RequestDialogNew = (props: Props) => {
         name={props.name}
         status={props.status}
       />
-      <DialogContent className="max-h-[90vh] w-full overflow-y-auto md:max-w-screen-lg">
+      <DialogContent className="max-h-[100dvh] w-full overflow-y-auto p-3 sm:max-h-[95vh] sm:max-w-screen-lg sm:p-6">
         <DialogHeader>
           <DialogTitle>Konfirmasi</DialogTitle>
           <DialogDescription>
@@ -44,6 +46,7 @@ const RequestDialogNew = (props: Props) => {
         </DialogHeader>
         {open ? (
           <FormValidationProps
+            onClose={() => setOpen(false)}
             data={props.formatDocument}
             docType={props.docType}
             id={props.id}

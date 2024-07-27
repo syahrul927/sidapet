@@ -6,15 +6,20 @@ import { type DynamicPropsArray } from "~/data/service";
 import { api } from "~/trpc/react";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { useToast } from "../ui/use-toast";
-import { Button } from "../ui/button";
-import WhatsappIcon from "../ui/whatsapp-icon";
+import WhatsappButton from "../ui/whatsapp-button";
 
 interface FormValidationProps {
+  onClose: () => void;
   docType: DynamicPropsArray;
   data: string;
   id: string;
 }
-const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
+const FormValidationProps = ({
+  data,
+  docType,
+  id,
+  onClose,
+}: FormValidationProps) => {
   const values = docType.formSchema.parse(JSON.parse(data));
   const { toast } = useToast();
   const { refetch } = useQueue();
@@ -24,6 +29,7 @@ const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
         title: "Berhasil",
         description: "Data tervalidasi!",
       });
+      onClose();
       refetch();
     },
     onError: () => {
@@ -44,18 +50,16 @@ const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
       fieldConfig={docType.validationFieldConfig(data)}
       values={values}
       formSchema={docType.validationSchema}
-      className="max-w-xs md:w-full md:max-w-full"
     >
       <DialogFooter className="flex-row gap-2">
         <DialogClose>
-          <Button variant={"outline"}>
-            <WhatsappIcon />
-            &nbsp;Hubungi Pemilik Surat
-          </Button>
+          <WhatsappButton
+            phoneNumber={values.phoneNumber}
+            name={values.name}
+            title={docType.title}
+          />
         </DialogClose>
-        <DialogClose>
-          <AutoFormSubmit>Simpan</AutoFormSubmit>
-        </DialogClose>
+        <AutoFormSubmit>Simpan</AutoFormSubmit>
       </DialogFooter>
     </AutoForm>
   );

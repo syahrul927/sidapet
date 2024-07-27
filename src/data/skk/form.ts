@@ -1,31 +1,32 @@
 import { z } from "zod";
+import { FieldConfig } from "~/components/ui/auto-form/types";
 import {
   BasicSchema,
   formAgama,
   formJenisKelamin,
   formPekerjaan,
 } from "../basic-schema";
-import { FieldConfig } from "~/components/ui/auto-form/types";
 
+export const SKKJenazahFormSchema = z.object({
+  nikJenazah: z.string(),
+  namaJenazah: z.string(),
+  jenisKelaminJenazah: formJenisKelamin,
+  tempatLahirJenazah: z.string(),
+  tglLahirJenazah: z.coerce.date(),
+  agamaJenazah: formAgama,
+  pekerjaanJenazah: formPekerjaan,
+  alamatJenazah: z.string(),
+  anakKeJenazah: z.number({ description: "Anak ke" }),
+  tanggalKematianJenazah: z.coerce.date({ description: "Tanggal Kematian" }),
+  jamKematianJenazah: z.coerce.date(),
+  sebabKematian: z.string(),
+  tempatKematian: z.string(),
+  yangMenerangkan: z.string(),
+});
 export const SKKFormSchema = BasicSchema.extend({
   namaKepalaKeluarga: z.string(),
   nomorKartuKeluarga: z.string(),
-  jenazah: z.object({
-    nikJenazah: z.string(),
-    namaJenazah: z.string(),
-    jenisKelaminJenazah: formJenisKelamin,
-    tempatLahirJenazah: z.string(),
-    tglLahirJenazah: z.coerce.date(),
-    agamaJenazah: formAgama,
-    pekerjaanJenazah: formPekerjaan,
-    alamatJenazah: z.string(),
-    anakKeJenazah: z.number({ description: "Anak ke" }),
-    tanggalKematianJenazah: z.coerce.date({ description: "Tanggal Kematian" }),
-    jamKematianJenazah: z.coerce.date(),
-    sebabKematian: z.string(),
-    tempatKematian: z.string(),
-    yangMenerangkan: z.string(),
-  }),
+  jenazah: SKKJenazahFormSchema,
   ayah: z.object({
     nikAyah: z.string(),
     namaAyah: z.string(),

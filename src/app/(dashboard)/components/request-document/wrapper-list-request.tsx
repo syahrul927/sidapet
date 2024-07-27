@@ -1,6 +1,5 @@
-import dynamic from "next/dynamic";
-import { RequestItemProps } from "./type";
 import RequestItem from "./request-item";
+import { type RequestItemProps } from "./type";
 
 interface ListRequestProps {
   data: RequestItemProps[];

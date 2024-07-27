@@ -1,9 +1,14 @@
 "use client";
+import LoadingPage from "~/components/ui/loading-page";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { RouterOutputs } from "~/trpc/react";
+import { type RouterOutputs } from "~/trpc/react";
 import { useQueue } from "../../hooks/use-queue";
-import { RequestItemProps } from "./type";
-import WrapperListRequest from "./wrapper-list-request";
+import { type RequestItemProps } from "./type";
+import dynamic from "next/dynamic";
+const WrapperListRequest = dynamic(() => import("./wrapper-list-request"), {
+  ssr: false,
+  loading: () => <LoadingPage />,
+});
 
 const mapper = (
   list: RouterOutputs["document"]["getWaitingRequest"],
@@ -20,7 +25,7 @@ const mapper = (
 };
 
 const TabQueueDocument = () => {
-  const { listNew, listValidated } = useQueue();
+  const { listNew, listValidated, isPending } = useQueue();
   return (
     <div className="flex flex-col">
       <Tabs defaultValue="NEW">
@@ -33,13 +38,23 @@ const TabQueueDocument = () => {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="NEW">
-          <WrapperListRequest data={mapper(listNew)} />
+          <Wrapper isPending={isPending} data={mapper(listNew)} />
         </TabsContent>
         <TabsContent value="VALIDATED">
-          <WrapperListRequest data={mapper(listValidated)} />
+          <Wrapper isPending={isPending} data={mapper(listValidated)} />
         </TabsContent>
       </Tabs>
     </div>
   );
 };
 export default TabQueueDocument;
+
+const Wrapper = ({
+  isPending,
+  data,
+}: {
+  isPending: boolean;
+  data: RequestItemProps[];
+}) => {
+  return isPending ? <LoadingPage /> : <WrapperListRequest data={data} />;
+};
