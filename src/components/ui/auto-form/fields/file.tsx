@@ -7,7 +7,7 @@ import AutoFormTooltip from "../common/tooltip";
 import { type AutoFormInputComponentProps } from "../types";
 import { Button, buttonVariants } from "../../button";
 import { Label } from "../../label";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib/cn";
 export default function AutoFormFile({
   label,
   isRequired,

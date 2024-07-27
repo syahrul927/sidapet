@@ -18,8 +18,7 @@ export const useQueue = () => {
   }
   return context;
 };
-
-export const QueueProvider = ({ children }: { children: ReactNode }) => {
+const QueueProvider = ({ children }: { children: ReactNode }) => {
   const { data, isPending, refetch } =
     api.document.getWaitingRequest.useQuery();
   const value: QueueType = useMemo(() => {
@@ -34,3 +33,5 @@ export const QueueProvider = ({ children }: { children: ReactNode }) => {
     <QueueContext.Provider value={value}>{children}</QueueContext.Provider>
   );
 };
+
+export default QueueProvider;

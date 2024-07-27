@@ -1,7 +1,5 @@
-import { GiGraveFlowers } from "react-icons/gi";
-import { type IconType } from "react-icons/lib";
-import { PiHandCoinsDuotone } from "react-icons/pi";
 import { z } from "zod";
+import { CoinsIcon, DoorClosedIcon, LucideIcon } from "lucide-react";
 import { FieldConfig } from "~/components/ui/auto-form/types";
 import { ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
 import { SKKFormFieldConfig, SKKFormSchema } from "./skk/form";
@@ -18,7 +16,7 @@ export type ServicesDocumentProps<T extends ZodObjectOrWrapped> = {
   code: string;
   title: string;
   description?: string;
-  icon: IconType;
+  icon: LucideIcon;
   formSchema: T;
   formFieldConfig: FieldConfig<z.infer<T>>;
   validationSchema: T;
@@ -32,7 +30,7 @@ export const ServicesDocument: DynamicPropsArray[] = [
   {
     code: "SKU",
     title: "Surat Keterangan Usaha",
-    icon: PiHandCoinsDuotone,
+    icon: CoinsIcon,
     formSchema: SKUFormSchema,
     formFieldConfig: SKUFormFieldConfig,
     validationSchema: SKUValidationSchema,
@@ -45,7 +43,7 @@ export const ServicesDocument: DynamicPropsArray[] = [
   {
     code: "SKK",
     title: "Surat Keterangan Kematian",
-    icon: GiGraveFlowers,
+    icon: DoorClosedIcon,
     formSchema: SKKFormSchema,
     formFieldConfig: SKKFormFieldConfig,
     validationSchema: SKKValidationScema,

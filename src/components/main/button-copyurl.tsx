@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { RiFileCopyFill } from "react-icons/ri";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
+import { CopyIcon } from "lucide-react";
 
 const ButtonCopyUrl = () => {
   const [currentUrl, setCurrentUrl] = useState("");
@@ -24,7 +24,7 @@ const ButtonCopyUrl = () => {
   return (
     <Button onClick={() => copyToClipboard(currentUrl)}>
       Simpan Link&nbsp;
-      <RiFileCopyFill />
+      <CopyIcon />
     </Button>
   );
 };

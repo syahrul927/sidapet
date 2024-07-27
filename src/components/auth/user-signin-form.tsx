@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib/cn";
 import { Button } from "../ui/button";
 import {
   Form,

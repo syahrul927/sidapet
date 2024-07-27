@@ -1,16 +1,15 @@
 import {
   CheckCircleIcon,
   GhostIcon,
-  type LucideIcon,
   Menu,
   PlusCircleIcon,
   UsersIcon,
+  type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import DropdownAccount from "./dropdown-account";
-import { ThemeToggle } from "../ui/theme-toggle";
 
 const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
   {
@@ -77,10 +76,10 @@ const Header = () => {
           </nav>
         </SheetContent>
       </Sheet>
-      <div className="flex w-full flex-row-reverse">
+      {/* <div className="flex w-full flex-row-reverse">
         <ThemeToggle />
-      </div>
-      <div className="flex items-center gap-4 md:gap-2 lg:gap-4">
+      </div> */}
+      <div className="ml-auto flex items-center gap-4 md:gap-2 lg:gap-4">
         <DropdownAccount />
       </div>
     </header>

@@ -7,7 +7,7 @@ import { api } from "~/trpc/react";
 import { DialogClose, DialogFooter } from "../ui/dialog";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
-import { FaWhatsapp } from "react-icons/fa6";
+import WhatsappIcon from "../ui/whatsapp-icon";
 
 interface FormValidationProps {
   docType: DynamicPropsArray;
@@ -49,7 +49,7 @@ const FormValidationProps = ({ data, docType, id }: FormValidationProps) => {
       <DialogFooter className="flex-row gap-2">
         <DialogClose>
           <Button variant={"outline"}>
-            <FaWhatsapp />
+            <WhatsappIcon />
             &nbsp;Hubungi Pemilik Surat
           </Button>
         </DialogClose>

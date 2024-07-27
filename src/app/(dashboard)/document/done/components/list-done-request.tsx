@@ -1,6 +1,6 @@
 "use client";
 
-import RequestItem from "~/app/(dashboard)/components/request-document-item";
+import RequestItem from "~/app/(dashboard)/components/request-document/request-item";
 import { api } from "~/trpc/react";
 
 const ListDoneRequest = () => {
@@ -26,7 +26,6 @@ const ListDoneRequest = () => {
           key={item.id}
           documentCounter={item.documentConter}
           name={item.ownerName ?? ""}
-          documentType={item.title ?? ""}
           documentCode={item.documentCode}
           formatDocument={JSON.stringify(item.formatDocument) ?? ""}
           createdDate={item.createdDate}

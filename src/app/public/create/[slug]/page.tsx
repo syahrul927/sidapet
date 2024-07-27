@@ -1,6 +1,6 @@
 "use client";
+import { LucideMessageCircleWarning } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
-import { PiWarningCircleBold } from "react-icons/pi";
 import ServiceFormDocument from "~/components/document/form";
 import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert";
 import { useToast } from "~/components/ui/use-toast";
@@ -33,7 +33,7 @@ const DocumentCreateService = ({ params }: PageType) => {
   return (
     <>
       <Alert variant={"destructive"}>
-        <PiWarningCircleBold />
+        <LucideMessageCircleWarning />
         <AlertTitle className="text-sm">Perhatian</AlertTitle>
         <AlertDescription className="text-xs">{docType.notes}</AlertDescription>
       </Alert>

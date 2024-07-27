@@ -1,6 +1,5 @@
+import { ArrowUpRightIcon, LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { type IconType } from "react-icons/lib";
-import { RiArrowRightUpLine } from "react-icons/ri";
 import { ServicesDocument } from "~/data/service";
 
 interface DocumentServicesProps {
@@ -19,7 +18,7 @@ export default DocumentServices;
 const ServiceItem = (props: {
   isPublic?: boolean;
   title: string;
-  icon: IconType;
+  icon: LucideIcon;
   code: string;
 }) => {
   const prefixUrl = props.isPublic ? "/public/create/" : "/document/create/";
@@ -27,7 +26,7 @@ const ServiceItem = (props: {
     <Link href={`${prefixUrl}${props.code}`}>
       <div className="relative flex min-h-32 cursor-pointer flex-col justify-center rounded-lg border bg-card p-3 transition-colors duration-150 hover:bg-primary hover:text-primary-foreground ">
         <div className="absolute right-3 top-3 w-fit">
-          <RiArrowRightUpLine size={24} />
+          <ArrowUpRightIcon size={24} />
         </div>
         <div className="flex w-full items-center">
           <div className="px-3">

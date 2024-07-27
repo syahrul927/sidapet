@@ -1,17 +1,16 @@
 "use client";
-import { FaFileCirclePlus, FaPrint } from "react-icons/fa6";
-import { type IconType } from "react-icons/lib";
+import { ActivityIcon, LucideIcon, PrinterIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 const SummaryDashboard = () => {
   return (
     <div className="grid gap-1 md:grid-cols-2 md:gap-2">
-      <CardItem title="Request masuk" total={15} icon={FaFileCirclePlus} />
+      <CardItem title="Request masuk" total={15} icon={ActivityIcon} />
       <CardItem
         title="Siap diprint"
         description="Data sudah divalidasi"
         total={23}
-        icon={FaPrint}
+        icon={PrinterIcon}
       />
     </div>
   );
@@ -22,7 +21,7 @@ interface CardItemProps {
   title: string;
   description?: string;
   total: number;
-  icon: IconType;
+  icon: LucideIcon;
 }
 const CardItem = (props: CardItemProps) => {
   return (

@@ -1,6 +1,6 @@
 "use client";
 import React, { type HTMLAttributes } from "react";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib/cn";
 
 interface LayoutDashboardProps extends HTMLAttributes<HTMLDivElement> {
   title?: string;

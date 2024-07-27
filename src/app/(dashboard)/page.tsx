@@ -1,11 +1,13 @@
 import LayoutDashboard from "~/components/dashboard/layout-dashboard";
-
-import QueueDocument from "./components/queue-document";
+import TabQueueDocument from "./components/request-document/tab-queue-document";
+import QueueProvider from "./hooks/use-queue";
 
 export default function Dashboard() {
   return (
-    <LayoutDashboard className="">
-      <QueueDocument />
+    <LayoutDashboard className="Antrian Request Dokumen">
+      <QueueProvider>
+        <TabQueueDocument />
+      </QueueProvider>
     </LayoutDashboard>
   );
 }

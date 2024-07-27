@@ -108,9 +108,7 @@ const DocumentRouter = createTRPCRouter({
         formatDocument: true,
       },
     });
-    return documents.map((doc) => {
-      return { ...doc, title: MapServiceDocument[doc.documentCode]?.title };
-    });
+    return documents;
   }),
   validateRequest: protectedProcedure
     .input(

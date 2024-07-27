@@ -1,7 +1,6 @@
 "use client";
-import { LoaderCircleIcon } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
-import { PiWarningCircleBold } from "react-icons/pi";
+import { LoaderCircleIcon, LucideMessageCircleWarning } from "lucide-react";
+import { useRouter } from "next/navigation";
 import ButtonCopyUrl from "~/components/main/button-copyurl";
 import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
 import { Badge } from "~/components/ui/badge";
@@ -12,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib/cn";
 import { api } from "~/trpc/react";
 import { type PageType } from "~/types/page-type";
 
@@ -31,7 +30,7 @@ const DocumentSuccessCreate = ({ searchParams }: PageType) => {
   return (
     <div className="mt-6 flex w-full flex-col items-center justify-center gap-3 px-3">
       <Alert className="invert">
-        <PiWarningCircleBold />
+        <LucideMessageCircleWarning />
         <AlertTitle>Perhatian</AlertTitle>
         <AlertDescription>{data?.notes}</AlertDescription>
       </Alert>

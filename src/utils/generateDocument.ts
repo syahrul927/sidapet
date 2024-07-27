@@ -2,7 +2,7 @@
 import Docxtemplater from "docxtemplater";
 import { saveAs } from "file-saver";
 import PizZip from "pizzip";
-import { formatDate } from "~/lib/utils";
+import { formatDate } from "~/lib/date";
 
 const fetchTemplate = async (url: string): Promise<ArrayBuffer> => {
   const response = await fetch(url);

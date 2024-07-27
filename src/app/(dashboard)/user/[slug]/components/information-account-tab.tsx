@@ -20,7 +20,7 @@ import {
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
 import { useToast } from "~/components/ui/use-toast";
-import { cn } from "~/lib/utils";
+import { cn } from "~/lib/cn";
 import { api } from "~/trpc/react";
 
 const accountFormSchema = z.object({
