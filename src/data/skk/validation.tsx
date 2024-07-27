@@ -1,14 +1,10 @@
 "use client";
 import { z } from "zod";
 import { type FieldConfig } from "~/components/ui/auto-form/types";
-import { SKKFormSchema, SKKJenazahFormSchema } from "./form";
 import { parseToSchema } from "~/utils/json-utils";
-import { formatHour } from "~/lib/date";
+import { SKKFormSchema } from "./form";
 
 export const SKKValidationScema = SKKFormSchema.extend({
-  jenazah: SKKJenazahFormSchema.extend({
-    jamKematianJenazah: z.coerce.date().transform((date) => formatHour(date)),
-  }),
   createdDate: z.coerce
     .date({ description: "Tanggal Pembuatan Surat" })
     .default(new Date()),

@@ -1,12 +1,12 @@
 "use client";
 
 import { z } from "zod";
-import PhotoPreview from "~/components/document/photo-preview";
-import { type FieldConfig } from "~/components/ui/auto-form/types";
-import { SKUFormSchema } from "./form";
+import { SKBPMFormSchema } from "./form";
+import { FieldConfig } from "~/components/ui/auto-form/types";
 import { parseToSchema } from "~/utils/json-utils";
+import PhotoPreview from "~/components/document/photo-preview";
 
-export const SKUValidationSchema = SKUFormSchema.extend({
+export const SKBPMValidationSchema = SKBPMFormSchema.extend({
   suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
   tglSuratPengantar: z.coerce.date({
     description: "Tanggal Surat Pengantar dibuat",
@@ -15,11 +15,10 @@ export const SKUValidationSchema = SKUFormSchema.extend({
     .date({ description: "Tanggal Pembuatan Surat" })
     .default(new Date()),
 });
-
-export const SKUValidationFieldConfig = (
+export const SKBPMValidationFieldConfig = (
   values: string,
-): FieldConfig<z.infer<typeof SKUValidationSchema>> => {
-  const form = parseToSchema(SKUFormSchema, values);
+): FieldConfig<z.infer<typeof SKBPMValidationSchema>> => {
+  const form = parseToSchema(SKBPMFormSchema, values);
   return {
     jenisKelamin: {
       fieldType: "radio",
@@ -37,18 +36,8 @@ export const SKUValidationFieldConfig = (
         defaultValue: form.pekerjaan,
       },
     },
-    pernikahan: {
-      fieldType: "radio",
-      inputProps: {
-        defaultValue: form.pernikahan,
-      },
-    },
     alamatKtp: {
       description: "Sesuaikan dengan alamat pada KTP",
-      fieldType: "textarea",
-    },
-    alamatUsaha: {
-      description: "Alamat tempat ada melakukan bisnis/usaha",
       fieldType: "textarea",
     },
     suratPengantar: {

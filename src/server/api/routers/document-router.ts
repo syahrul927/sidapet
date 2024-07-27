@@ -17,7 +17,11 @@ const DocumentRouter = createTRPCRouter({
         documentConter: true,
         documentCode: true,
         createdDate: true,
+        updatedDate: true,
         formatDocument: true,
+      },
+      orderBy: {
+        createdDate: "desc",
       },
     });
     return documents.map((doc) => {

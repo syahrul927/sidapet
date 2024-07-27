@@ -1,5 +1,11 @@
+import {
+  CoinsIcon,
+  DoorClosedIcon,
+  FileHeartIcon,
+  LucideIcon,
+} from "lucide-react";
+import { ReactNode } from "react";
 import { z } from "zod";
-import { CoinsIcon, DoorClosedIcon, LucideIcon } from "lucide-react";
 import { FieldConfig } from "~/components/ui/auto-form/types";
 import { ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
 import { SKKFormFieldConfig, SKKFormSchema } from "./skk/form";
@@ -9,14 +15,19 @@ import {
   SKUValidationFieldConfig,
   SKUValidationSchema,
 } from "./sku/validation";
+import { SKBPMFormFieldConfig, SKBPMFormSchema } from "./skbpm/form";
+import {
+  SKBPMValidationFieldConfig,
+  SKBPMValidationSchema,
+} from "./skbpm/validation";
 
-const schemas = [SKUFormSchema, SKKFormSchema] as const;
+const schemas = [SKUFormSchema, SKKFormSchema, SKBPMFormSchema] as const;
 type SchemaUnion = (typeof schemas)[number];
 export type ServicesDocumentProps<T extends ZodObjectOrWrapped> = {
   code: string;
   title: string;
   description?: string;
-  icon: LucideIcon;
+  icon: LucideIcon | (() => ReactNode);
   formSchema: T;
   formFieldConfig: FieldConfig<z.infer<T>>;
   validationSchema: T;
@@ -27,6 +38,19 @@ export type ServicesDocumentProps<T extends ZodObjectOrWrapped> = {
 };
 export type DynamicPropsArray = ServicesDocumentProps<SchemaUnion>;
 export const ServicesDocument: DynamicPropsArray[] = [
+  {
+    code: "SKBPM",
+    documentId: "474.2",
+    title: "Surat Keterangan Belum Pernah Menikah",
+    icon: FileHeartIcon,
+    formSchema: SKBPMFormSchema,
+    formFieldConfig: SKBPMFormFieldConfig,
+    validationSchema: SKBPMValidationSchema,
+    validationFieldConfig: SKBPMValidationFieldConfig,
+    templatePath: "/template/SKBPM.docx",
+    notes:
+      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP dan Surat Pengantar RT/RW",
+  },
   {
     code: "SKU",
     title: "Surat Keterangan Usaha",
@@ -49,9 +73,9 @@ export const ServicesDocument: DynamicPropsArray[] = [
     validationSchema: SKKValidationScema,
     validationFieldConfig: SKKValidationFieldConfig,
     templatePath: "/template/SKK.docx",
-    documentId: "553",
+    documentId: "474.3 ",
     notes:
-      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP dan Surat Pengantar RT/RW",
+      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP jenazah, orang tua dan pelapor ",
   },
 ];
 export const MapServiceDocument = ServicesDocument.reduce(
