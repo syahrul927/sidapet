@@ -60,7 +60,7 @@ const DocumentRouter = createTRPCRouter({
           documentCode: docType.code,
           documentConter: String(
             counter?.counter ? counter.counter + 1 : 1,
-          ).padStart(3, "0"),
+          ).padStart(4, "0"),
           ownerPhone: input.ownerPhone,
           ownerName: input.ownerName,
           formatDocument: JSON.parse(input.formatDocument),

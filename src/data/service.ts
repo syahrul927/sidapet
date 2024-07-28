@@ -3,6 +3,8 @@ import {
   DoorClosedIcon,
   FileHeartIcon,
   LucideIcon,
+  MapPinIcon,
+  MapPinOffIcon,
 } from "lucide-react";
 import { ReactNode } from "react";
 import { z } from "zod";
@@ -20,8 +22,24 @@ import {
   SKBPMValidationFieldConfig,
   SKBPMValidationSchema,
 } from "./skbpm/validation";
+import { SKDTTFormFieldConfig, SKDTTFormSchema } from "./skdtt/form";
+import {
+  SKDTTValidationFieldConfig,
+  SKDTTValidationSchema,
+} from "./skdtt/validation";
+import { SKDTTSFormFieldConfig, SKDTTSFormSchema } from "./skdtts/form";
+import {
+  SKDTTSValidationFieldConfig,
+  SKDTTSValidationSchema,
+} from "./skdtts/validation";
 
-const schemas = [SKUFormSchema, SKKFormSchema, SKBPMFormSchema] as const;
+const schemas = [
+  SKUFormSchema,
+  SKKFormSchema,
+  SKBPMFormSchema,
+  SKDTTFormSchema,
+  SKDTTSFormSchema,
+] as const;
 type SchemaUnion = (typeof schemas)[number];
 export type ServicesDocumentProps<T extends ZodObjectOrWrapped> = {
   code: string;
@@ -38,6 +56,32 @@ export type ServicesDocumentProps<T extends ZodObjectOrWrapped> = {
 };
 export type DynamicPropsArray = ServicesDocumentProps<SchemaUnion>;
 export const ServicesDocument: DynamicPropsArray[] = [
+  {
+    code: "SKDTTS",
+    documentId: "471.1",
+    title: "Surat Keterangan Domisili Tempat Tinggal Sementara",
+    icon: MapPinOffIcon,
+    formSchema: SKDTTSFormSchema,
+    formFieldConfig: SKDTTSFormFieldConfig,
+    validationSchema: SKDTTSValidationSchema,
+    validationFieldConfig: SKDTTSValidationFieldConfig,
+    templatePath: "/template/SKDTTS.docx",
+    notes:
+      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP dan Surat Pengantar RT/RW",
+  },
+  {
+    code: "SKDTT",
+    documentId: "471.1",
+    title: "Surat Keterangan Domisili Tempat Tinggal",
+    icon: MapPinIcon,
+    formSchema: SKDTTFormSchema,
+    formFieldConfig: SKDTTFormFieldConfig,
+    validationSchema: SKDTTValidationSchema,
+    validationFieldConfig: SKDTTValidationFieldConfig,
+    templatePath: "/template/SKDTT.docx",
+    notes:
+      "Ketika mengambil surat di Kelurahan, Bawa beberapa persyaratan untuk dijadikan bukti diantaranya: Fotocopy KTP dan Surat Pengantar RT/RW",
+  },
   {
     code: "SKBPM",
     documentId: "474.2",

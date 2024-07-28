@@ -7,14 +7,11 @@ import {
   formPekerjaan,
 } from "../basic-schema";
 
-export const SKUFormSchema = BasicSchema.extend({
+export const SKDTTSFormSchema = BasicSchema.extend({
   kotaLahir: z.string({ description: "Tempat Lahir" }),
   tglLahir: z.coerce.date({ description: "Tanggal Lahir" }),
   pekerjaan: formPekerjaan,
   jenisKelamin: formJenisKelamin,
-  pernikahan: z.enum(["Belum Kawin", "Sudah Kawin"], {
-    description: "Status Pernikahan",
-  }),
   agama: formAgama,
   nik: z.string({ description: "NIK" }).min(6),
   alamatKtp: z.string({ description: "Alamat Sesuai KTP" }),
@@ -31,30 +28,26 @@ export const SKUFormSchema = BasicSchema.extend({
     .max(3)
     .default("")
     .transform((str) => str.padStart(3, "0")),
-  namaUsaha: z.string({ description: "Nama Usaha" }),
-  alamatUsaha: z.string({ description: "Alamat Usaha" }),
+  alamatSementara: z.string({ description: "Alamat Lengkap Sementara" }),
   keperluan: z.string({
     description: "Keperluan/Alasan membuat surat.",
   }),
 });
 
-export type SKUFormType = z.infer<typeof SKUFormSchema>;
-export const SKUFormFieldConfig: FieldConfig<z.infer<typeof SKUFormSchema>> = {
+export type SKDTTSFormType = z.infer<typeof SKDTTSFormSchema>;
+export const SKDTTSFormFieldConfig: FieldConfig<SKDTTSFormType> = {
   suratPengantar: {
     fieldType: "file",
   },
   jenisKelamin: {
     fieldType: "radio",
   },
-  pernikahan: {
-    fieldType: "radio",
-  },
   alamatKtp: {
     description: "Sesuaikan dengan alamat pada KTP",
     fieldType: "textarea",
   },
-  alamatUsaha: {
-    description: "Alamat tempat ada melakukan bisnis/usaha",
+  alamatSementara: {
+    description: "Tuliskan detail alamat tempat anda berdomisili sementara",
     fieldType: "textarea",
   },
   keperluan: {
