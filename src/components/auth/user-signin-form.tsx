@@ -46,7 +46,7 @@ export function UserSigninForm({
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const { toast } = useToast();
   const router = useRouter();
-  const { data } = useSession();
+  const { data, status } = useSession();
 
   const form = useForm<z.infer<typeof formLogin>>({
     defaultValues: {
@@ -62,29 +62,36 @@ export function UserSigninForm({
       redirect: false,
     })
       .then((resp) => {
-        setIsLoading(false);
-        if (resp?.ok) {
+        if (!resp?.ok) {
           toast({
-            title: "Selamat Datang",
-            description: `${data?.user.name}`,
+            title: "Gagal",
+            variant: "destructive",
+            description: "Email atau password salah!",
           });
-          return router.push("/");
         }
-        toast({
-          title: "Gagal",
-          variant: "destructive",
-          description: "Email atau password salah!",
-        });
       })
-      .catch((_err) => {
-        setIsLoading(false);
+      .catch((err) => {
+        console.log(err);
         toast({
           title: "Oops...",
+          variant: "destructive",
           description: "Terjadi kesalahan sistem. Segera hubungi developer!",
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
+  React.useEffect(() => {
+    if (data && status === "authenticated") {
+      toast({
+        title: "Selamat Datang",
+        description: `${data?.user.name}`,
+      });
+      return router.push("/");
+    }
+  }, [data, status]);
   return (
     <div className={cn("grid gap-6 ", className)} {...props}>
       <Form {...form}>
