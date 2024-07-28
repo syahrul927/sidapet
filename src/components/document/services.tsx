@@ -1,5 +1,6 @@
 import { ArrowUpRightIcon, LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { ReactNode } from "react";
 import { ServicesDocument } from "~/data/service";
 
 interface DocumentServicesProps {
@@ -18,7 +19,7 @@ export default DocumentServices;
 const ServiceItem = (props: {
   isPublic?: boolean;
   title: string;
-  icon: LucideIcon;
+  icon: LucideIcon | (() => ReactNode);
   code: string;
 }) => {
   const prefixUrl = props.isPublic ? "/public/create/" : "/document/create/";
