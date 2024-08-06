@@ -9,9 +9,9 @@ import {
   DialogTitle,
 } from "~/components/ui/dialog";
 import LoadingPage from "~/components/ui/loading-page";
-import { DynamicPropsArray } from "~/data/service";
+import { type DynamicPropsArray } from "~/data/service";
 import RequestTriggerDocument from "./request-trigger";
-import { RequestItemProps } from "./type";
+import { type RequestItemProps } from "./type";
 
 const FormValidationProps = dynamic(
   () => import("~/components/document/validation"),

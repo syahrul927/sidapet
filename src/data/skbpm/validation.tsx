@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { SKBPMFormSchema } from "./form";
-import { FieldConfig } from "~/components/ui/auto-form/types";
+import { type FieldConfig } from "~/components/ui/auto-form/types";
 import { parseToSchema } from "~/utils/json-utils";
 import PhotoPreview from "~/components/document/photo-preview";
 

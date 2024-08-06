@@ -5,7 +5,7 @@ import {
   formJenisKelamin,
   formPekerjaan,
 } from "../basic-schema";
-import { FieldConfig } from "~/components/ui/auto-form/types";
+import { type FieldConfig } from "~/components/ui/auto-form/types";
 
 export const SKKFormSchema = BasicSchema.extend({
   namaKepalaKeluarga: z.string(),

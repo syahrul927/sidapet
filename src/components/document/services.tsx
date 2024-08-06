@@ -1,6 +1,6 @@
-import { ArrowUpRightIcon, LucideIcon } from "lucide-react";
+import { ArrowUpRightIcon, type LucideIcon } from "lucide-react";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { ServicesDocument } from "~/data/service";
 
 interface DocumentServicesProps {

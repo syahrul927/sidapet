@@ -10,14 +10,14 @@ import {
 import { cn } from "~/lib/cn";
 import { Input } from "~/components/ui/input";
 import { Button, buttonVariants } from "~/components/ui/button";
-import { CalendarProps } from "~/components/ui/calendar";
+import { type CalendarProps } from "~/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { Clock } from "lucide-react";
-import { enUS, Locale } from "date-fns/locale";
+import { enUS, type Locale } from "date-fns/locale";
 
 import {
   Select,

@@ -9,9 +9,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "~/components/ui/dialog";
-import { DynamicPropsArray } from "~/data/service";
+import { type DynamicPropsArray } from "~/data/service";
 import RequestTriggerDocument from "./request-trigger";
-import { RequestItemProps } from "./type";
+import { type RequestItemProps } from "./type";
 import { DownloadIcon } from "lucide-react";
 import { useQueue } from "../../hooks/use-queue";
 import { useToast } from "~/components/ui/use-toast";

@@ -2,14 +2,14 @@ import {
   CoinsIcon,
   DoorClosedIcon,
   FileHeartIcon,
-  LucideIcon,
+  type LucideIcon,
   MapPinIcon,
   MapPinOffIcon,
 } from "lucide-react";
-import { ReactNode } from "react";
-import { z } from "zod";
-import { FieldConfig } from "~/components/ui/auto-form/types";
-import { ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
+import { type ReactNode } from "react";
+import { type z } from "zod";
+import { type FieldConfig } from "~/components/ui/auto-form/types";
+import { type ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
 import { SKKFormFieldConfig, SKKFormSchema } from "./skk/form";
 import { SKKValidationFieldConfig, SKKValidationScema } from "./skk/validation";
 import { SKUFormFieldConfig, SKUFormSchema } from "./sku/form";

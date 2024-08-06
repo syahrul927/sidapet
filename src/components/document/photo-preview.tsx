@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import { FormDescription, FormLabel } from "../ui/form";
 
 interface PhotoPreviewProps {

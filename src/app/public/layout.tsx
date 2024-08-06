@@ -1,6 +1,6 @@
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 import HeaderMobile from "./components/header-mobile";
-import { Viewport } from "next";
+import { type Viewport } from "next";
 
 export const viewport: Viewport = {
   width: "device-width",

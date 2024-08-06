@@ -1,5 +1,5 @@
 "use client";
-import { ActivityIcon, LucideIcon, PrinterIcon } from "lucide-react";
+import { ActivityIcon, type LucideIcon, PrinterIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 
 const SummaryDashboard = () => {

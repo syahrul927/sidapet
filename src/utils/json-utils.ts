@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
+import { type z } from "zod";
+import { type ZodObjectOrWrapped } from "~/components/ui/auto-form/utils";
 
 export const parseToSchema = <T extends ZodObjectOrWrapped>(
   schema: T,
