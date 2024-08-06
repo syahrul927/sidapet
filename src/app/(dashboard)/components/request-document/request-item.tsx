@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { MapServiceDocument } from "~/data/service";
-import { RequestItemProps } from "./type";
+import { type RequestItemProps } from "./type";
 import RequestDialogNew from "./request-dialog-new";
 import RequestDialogValidated from "./request-dialog-validated";
 
