@@ -1,19 +1,19 @@
-import moment from "moment";
-import "moment/locale/id";
+import moment from "moment"
+import "moment/locale/id"
 
 export function fromNow(date: Date) {
-  const formatted = moment(date);
-  formatted.locale("id");
-  return formatted.fromNow();
+    const formatted = moment(date)
+    formatted.locale("id")
+    return formatted.fromNow()
 }
 
 const padDate = (str: string | number) => {
-  return String(str).padStart(2, "0");
-};
+    return String(str).padStart(2, "0")
+}
 export function formatDate(element: Date) {
-  return `${padDate(element.getDate())}/${padDate(element.getMonth() + 1)}/${element.getFullYear()}`;
+    return `${padDate(element.getDate())}/${padDate(element.getMonth() + 1)}/${element.getFullYear()}`
 }
 
 export function formatHour(element: Date) {
-  return `${padDate(element.getHours())}:${padDate(element.getMinutes())}`;
+    return `${padDate(element.getHours())}:${padDate(element.getMinutes())}`
 }

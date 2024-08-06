@@ -1,6 +1,6 @@
-import { LoaderCircleIcon } from "lucide-react";
+import { LoaderCircleIcon } from "lucide-react"
 
 const LoadingPage = () => {
-  return <LoaderCircleIcon className="animate-spin" />;
-};
-export default LoadingPage;
+    return <LoaderCircleIcon className="animate-spin" />
+}
+export default LoadingPage
