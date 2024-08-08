@@ -15,12 +15,12 @@ import { cn } from "~/lib/cn"
 
 const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
     {
-        label: "Antrian Dokumen",
+        label: "Antrean Dokumen",
         href: "/",
         icon: CircleDashedIcon,
     },
     {
-        label: "Request Dokumen",
+        label: "Buat Dokumen",
         href: "/document/create",
         icon: PlusCircleIcon,
     },
