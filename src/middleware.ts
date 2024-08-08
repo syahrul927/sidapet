@@ -15,7 +15,7 @@ export default withAuth({
 // See "Matching Paths" below to learn more
 export const config = {
     matcher: [
-        "/((?!api|auth|_next/static|_next/*.png|_next/*.webp|_next/*.jpg|favicon.ico|favicon.png|_next/image|images|auth|manifest.json).*)",
+        "/((?!api|auth|_next/static|_next/*.png|_next/*.webp|_next/*.jpg|logo.webp|favicon.ico|favicon.png|_next/image|images|auth|manifest.json).*)",
         "/",
     ],
 }
