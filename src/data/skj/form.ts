@@ -1,3 +1,3 @@
-import { BasicSchema } from "../basic-schema";
+import { BasicSchema } from "../basic-schema"
 
-export const SKJFormSchema = BasicSchema.extend({});
+export const SKJFormSchema = BasicSchema.extend({})
