@@ -1,5 +1,6 @@
 import {
     CheckCircleIcon,
+    CircleDashedIcon,
     Menu,
     PlusCircleIcon,
     UsersIcon,
@@ -16,7 +17,7 @@ const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
     {
         label: "Antrian Dokumen",
         href: "/",
-        icon: PlusCircleIcon,
+        icon: CircleDashedIcon,
     },
     {
         label: "Request Dokumen",
