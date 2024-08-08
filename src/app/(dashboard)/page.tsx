@@ -5,7 +5,7 @@ import QueueProvider from "./hooks/use-queue"
 
 export default function Dashboard() {
     return (
-        <LayoutDashboard title={"Antrian Dokumen"}>
+        <LayoutDashboard title={"Antrean Dokumen"}>
             <QueueProvider>
                 <TabQueueDocument />
             </QueueProvider>
