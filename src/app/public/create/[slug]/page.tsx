@@ -31,7 +31,7 @@ const DocumentCreateService = ({ params }: PageType) => {
         router.push("/public/")
     }
     return (
-        <>
+        <div className="flex max-w-2xl flex-col space-y-1 p-1">
             <Alert variant={"destructive"}>
                 <LucideMessageCircleWarning />
                 <AlertTitle className="text-sm">Perhatian</AlertTitle>
@@ -47,7 +47,7 @@ const DocumentCreateService = ({ params }: PageType) => {
                 title={docType.title}
                 fieldConfig={docType.formFieldConfig}
             />
-        </>
+        </div>
     )
 }
 export default DocumentCreateService
