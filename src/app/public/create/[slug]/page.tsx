@@ -2,7 +2,7 @@
 import { LucideMessageCircleWarning } from "lucide-react"
 import { redirect, useRouter } from "next/navigation"
 import ServiceFormDocument from "~/components/document/form"
-import { Alert, AlertTitle, AlertDescription } from "~/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert"
 import { useToast } from "~/components/ui/use-toast"
 import { ServicesDocument } from "~/data/service"
 import { type PageType } from "~/types/page-type"
