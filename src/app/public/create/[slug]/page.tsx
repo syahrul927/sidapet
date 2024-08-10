@@ -32,19 +32,25 @@ const DocumentCreateService = ({ params }: PageType) => {
   };
   return (
     <>
-      <Alert variant={"destructive"}>
-        <LucideMessageCircleWarning />
-        <AlertTitle className="text-sm">Perhatian</AlertTitle>
-        <AlertDescription className="text-xs">{docType.notes}</AlertDescription>
-      </Alert>
-      <ServiceFormDocument
-        onError={onError}
-        onSuccess={onSuccess}
-        code={slug}
-        schema={docType.formSchema}
-        title={docType.title}
-        fieldConfig={docType.formFieldConfig}
-      />
+      <div className="max-w-2xl p-1">
+        <Alert variant={"destructive"} className="bg-destructive/5">
+          <LucideMessageCircleWarning />
+          <AlertTitle className="text-sm">Perhatian</AlertTitle>
+          <AlertDescription className="text-xs">
+            {docType.notes}
+          </AlertDescription>
+        </Alert>
+      </div>
+      <div className="px-1">
+        <ServiceFormDocument
+          onError={onError}
+          onSuccess={onSuccess}
+          code={slug}
+          schema={docType.formSchema}
+          title={docType.title}
+          fieldConfig={docType.formFieldConfig}
+        />
+      </div>
     </>
   );
 };
