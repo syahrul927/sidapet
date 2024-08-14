@@ -21,16 +21,6 @@ export const SKUFormSchema = BasicSchema.extend({
     suratPengantar: z.string({
         description: "Upload foto surat pengantar dari RT/RW anda.",
     }),
-    rt: z
-        .string({ description: "RT Surat Pengantar" })
-        .max(3)
-        .default("")
-        .transform((str) => str.padStart(3, "0")),
-    rw: z
-        .string({ description: "RW Surat Pengantar" })
-        .max(3)
-        .default("")
-        .transform((str) => str.padStart(3, "0")),
     namaUsaha: z.string({ description: "Nama Usaha" }),
     alamatUsaha: z.string({ description: "Alamat Usaha" }),
     keperluan: z.string({
@@ -42,6 +32,10 @@ export type SKUFormType = z.infer<typeof SKUFormSchema>
 export const SKUFormFieldConfig: FieldConfig<z.infer<typeof SKUFormSchema>> = {
     suratPengantar: {
         fieldType: "file",
+        description: "Pastika format foto berupa PNG/JPG/JPEG",
+        inputProps: {
+            accept: "image/png, image/jpeg",
+        },
     },
     jenisKelamin: {
         fieldType: "radio",

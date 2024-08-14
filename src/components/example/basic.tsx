@@ -164,6 +164,11 @@ function Basics() {
 
                         file: {
                             fieldType: "file",
+                            description:
+                                "Pastika format foto berupa PNG/JPG/JPEG",
+                            inputProps: {
+                                accept: "image/png, image/jpeg",
+                            },
                             label: "Photo KTP",
                         },
                     }}

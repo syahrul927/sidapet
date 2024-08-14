@@ -7,6 +7,16 @@ import { SKDTTFormSchema } from "./form"
 import { parseToSchema } from "~/utils/json-utils"
 
 export const SKDTTValidationSchema = SKDTTFormSchema.extend({
+    rt: z
+        .string({ description: "RT Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
+    rw: z
+        .string({ description: "RW Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
     suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
     tglSuratPengantar: z.coerce.date({
         description: "Tanggal Surat Pengantar dibuat",

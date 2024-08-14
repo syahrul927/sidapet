@@ -7,6 +7,14 @@ import { parseToSchema } from "~/utils/json-utils"
 import PhotoPreview from "~/components/document/photo-preview"
 
 export const SKBPMValidationSchema = SKBPMFormSchema.extend({
+    rt: z
+        .string({ description: "RT Surat Pengantar" })
+        .max(3)
+        .transform((str) => str.padStart(3, "0")),
+    rw: z
+        .string({ description: "RW Surat Pengantar" })
+        .max(3)
+        .transform((str) => str.padStart(3, "0")),
     suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
     tglSuratPengantar: z.coerce.date({
         description: "Tanggal Surat Pengantar dibuat",
