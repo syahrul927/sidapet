@@ -15,17 +15,17 @@ import { cn } from "~/lib/cn"
 
 const MenuItems: { label: string; href: string; icon: LucideIcon }[] = [
     {
-        label: "Antrean Dokumen",
+        label: "Antrean Pengajuan Surat",
         href: "/",
         icon: CircleDashedIcon,
     },
     {
-        label: "Buat Dokumen",
+        label: "Buat Pengajuan Surat",
         href: "/document/create",
         icon: PlusCircleIcon,
     },
     {
-        label: "Dokumen Selesai",
+        label: "Histori Surat",
         href: "/document/done",
         icon: CheckCircleIcon,
     },

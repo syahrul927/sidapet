@@ -8,12 +8,13 @@ import {
 } from "../basic-schema"
 
 export const SKDTTSFormSchema = BasicSchema.extend({
+    photoKtp: z.string({ description: "Upload foto KTP anda" }),
+    nik: z.string({ description: "NIK" }).min(6),
     kotaLahir: z.string({ description: "Tempat Lahir" }),
     tglLahir: z.coerce.date({ description: "Tanggal Lahir" }),
     pekerjaan: formPekerjaan,
     jenisKelamin: formJenisKelamin,
     agama: formAgama,
-    nik: z.string({ description: "NIK" }).min(6),
     alamatKtp: z.string({ description: "Alamat Sesuai KTP" }),
     suratPengantar: z.string({
         description: "Upload foto surat pengantar dari RT/RW anda.",
@@ -26,6 +27,13 @@ export const SKDTTSFormSchema = BasicSchema.extend({
 
 export type SKDTTSFormType = z.infer<typeof SKDTTSFormSchema>
 export const SKDTTSFormFieldConfig: FieldConfig<SKDTTSFormType> = {
+    photoKtp: {
+        fieldType: "file",
+        description: "Pastika format foto berupa PNG/JPG/JPEG",
+        inputProps: {
+            accept: "image/png, image/jpeg",
+        },
+    },
     suratPengantar: {
         fieldType: "file",
         description: "Pastika format foto berupa PNG/JPG/JPEG",

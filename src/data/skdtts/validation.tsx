@@ -37,6 +37,16 @@ export const SKDTTSValidationFieldConfig = (
 ): FieldConfig<z.infer<typeof SKDTTSValidationSchema>> => {
     const form = parseToSchema(SKDTTSFormSchema, values)
     return {
+        photoKtp: {
+            renderParent: ({ children }) => {
+                return (
+                    <PhotoPreview
+                        src={form.photoKtp}
+                        title="Foto KTP"
+                    ></PhotoPreview>
+                )
+            },
+        },
         jenisKelamin: {
             fieldType: "radio",
             inputProps: {

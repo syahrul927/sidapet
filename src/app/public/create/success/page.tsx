@@ -16,9 +16,9 @@ import { api } from "~/trpc/react"
 import { type PageType } from "~/types/page-type"
 
 const strBuilder = (status: string) => {
-    if (!status) return "Dokumen tidak valid"
-    if (status === "NEW") return "Dokumen Sedang di proses!"
-    return "Dokumen Siap diambil!"
+    if (!status) return "Surat tidak valid"
+    if (status === "NEW") return "Surat Sedang di proses!"
+    return "Surat Siap diambil!"
 }
 const DocumentSuccessCreate = ({ searchParams }: PageType) => {
     const id = searchParams.id as string

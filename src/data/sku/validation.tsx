@@ -66,6 +66,16 @@ export const SKUValidationFieldConfig = (
                 return <div className="hidden">{children}</div>
             },
         },
+        photoKtp: {
+            renderParent: ({ children }) => {
+                return (
+                    <PhotoPreview
+                        src={form.photoKtp}
+                        title="Foto KTP"
+                    ></PhotoPreview>
+                )
+            },
+        },
         suratPengantarValue: {
             renderParent: ({ children }) => {
                 return (

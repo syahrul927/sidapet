@@ -8,6 +8,8 @@ import {
 } from "../basic-schema"
 
 export const SKUFormSchema = BasicSchema.extend({
+    photoKtp: z.string({ description: "Upload foto KTP anda" }),
+    nik: z.string({ description: "NIK" }).min(6),
     kotaLahir: z.string({ description: "Tempat Lahir" }),
     tglLahir: z.coerce.date({ description: "Tanggal Lahir" }),
     pekerjaan: formPekerjaan,
@@ -16,7 +18,6 @@ export const SKUFormSchema = BasicSchema.extend({
         description: "Status Pernikahan",
     }),
     agama: formAgama,
-    nik: z.string({ description: "NIK" }).min(6),
     alamatKtp: z.string({ description: "Alamat Sesuai KTP" }),
     suratPengantar: z.string({
         description: "Upload foto surat pengantar dari RT/RW anda.",
@@ -31,6 +32,13 @@ export const SKUFormSchema = BasicSchema.extend({
 export type SKUFormType = z.infer<typeof SKUFormSchema>
 export const SKUFormFieldConfig: FieldConfig<z.infer<typeof SKUFormSchema>> = {
     suratPengantar: {
+        fieldType: "file",
+        description: "Pastika format foto berupa PNG/JPG/JPEG",
+        inputProps: {
+            accept: "image/png, image/jpeg",
+        },
+    },
+    photoKtp: {
         fieldType: "file",
         description: "Pastika format foto berupa PNG/JPG/JPEG",
         inputProps: {
