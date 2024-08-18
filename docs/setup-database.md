@@ -14,7 +14,7 @@ Untuk menjalankan aplikasi diperlukan database untuk penyimpanan data aplikasi. 
 npm install
 ```
 
-6. Kemudian jalankan docker compose yang sudah di sediakan pada source code untuk melakukan installasi mysql pada docker.
+6. Kemudian jalankan docker compose `docker-compose.yml` yang sudah di sediakan pada source code untuk melakukan installasi mysql pada docker.
 
 ```bash
 docker-compose up -d
