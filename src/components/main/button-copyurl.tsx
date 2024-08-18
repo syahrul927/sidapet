@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import { Button } from "../ui/button"
 import { useToast } from "../ui/use-toast"
-import { CopyIcon } from "lucide-react"
+import { ClipboardCopyIcon, CopyIcon } from "lucide-react"
 
 const ButtonCopyUrl = () => {
     const [currentUrl, setCurrentUrl] = useState("")
@@ -24,7 +24,7 @@ const ButtonCopyUrl = () => {
     return (
         <Button onClick={() => copyToClipboard(currentUrl)}>
             Simpan Link&nbsp;
-            <CopyIcon />
+            <ClipboardCopyIcon size={16} />
         </Button>
     )
 }

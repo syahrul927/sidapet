@@ -8,6 +8,16 @@ import { parseToSchema } from "~/utils/json-utils"
 
 export const SKUValidationSchema = SKUFormSchema.extend({
     suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
+    rt: z
+        .string({ description: "RT Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
+    rw: z
+        .string({ description: "RW Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
     tglSuratPengantar: z.coerce.date({
         description: "Tanggal Surat Pengantar dibuat",
     }),
@@ -54,6 +64,16 @@ export const SKUValidationFieldConfig = (
         suratPengantar: {
             renderParent: ({ children }) => {
                 return <div className="hidden">{children}</div>
+            },
+        },
+        photoKtp: {
+            renderParent: ({ children }) => {
+                return (
+                    <PhotoPreview
+                        src={form.photoKtp}
+                        title="Foto KTP"
+                    ></PhotoPreview>
+                )
             },
         },
         suratPengantarValue: {

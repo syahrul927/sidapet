@@ -5,7 +5,7 @@ import QueueProvider from "./hooks/use-queue"
 
 export default function Dashboard() {
     return (
-        <LayoutDashboard title={"Antrean Dokumen"}>
+        <LayoutDashboard title={"Antrean Pengajuan Surat"}>
             <QueueProvider>
                 <TabQueueDocument />
             </QueueProvider>

@@ -10,7 +10,7 @@ import NextAuthProvider from "./context/nextauth-provider"
 
 export const metadata = {
     title: "SIDAPET",
-    description: "Aplikasi Pembuatan Dokumen Kelurahan Margahayu",
+    description: "Aplikasi Pengajuan Surat Kelurahan Margahayu",
     icons: [{ rel: "icon", url: "/logo.webp" }],
 }
 

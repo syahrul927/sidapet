@@ -7,6 +7,16 @@ import { SKDTTSFormSchema } from "./form"
 import { parseToSchema } from "~/utils/json-utils"
 
 export const SKDTTSValidationSchema = SKDTTSFormSchema.extend({
+    rt: z
+        .string({ description: "RT Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
+    rw: z
+        .string({ description: "RW Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
     suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
     tglSuratPengantar: z.coerce.date({
         description: "Tanggal Surat Pengantar dibuat",
@@ -27,6 +37,16 @@ export const SKDTTSValidationFieldConfig = (
 ): FieldConfig<z.infer<typeof SKDTTSValidationSchema>> => {
     const form = parseToSchema(SKDTTSFormSchema, values)
     return {
+        photoKtp: {
+            renderParent: ({ children }) => {
+                return (
+                    <PhotoPreview
+                        src={form.photoKtp}
+                        title="Foto KTP"
+                    ></PhotoPreview>
+                )
+            },
+        },
         jenisKelamin: {
             fieldType: "radio",
             inputProps: {

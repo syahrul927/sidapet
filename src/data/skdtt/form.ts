@@ -8,26 +8,17 @@ import {
 } from "../basic-schema"
 
 export const SKDTTFormSchema = BasicSchema.extend({
+    photoKtp: z.string({ description: "Upload foto KTP anda" }),
+    nik: z.string({ description: "NIK" }).min(6),
     kotaLahir: z.string({ description: "Tempat Lahir" }),
     tglLahir: z.coerce.date({ description: "Tanggal Lahir" }),
     pekerjaan: formPekerjaan,
     jenisKelamin: formJenisKelamin,
     agama: formAgama,
-    nik: z.string({ description: "NIK" }).min(6),
     alamatKtp: z.string({ description: "Alamat Sesuai KTP" }),
     suratPengantar: z.string({
         description: "Upload foto surat pengantar dari RT/RW anda.",
     }),
-    rt: z
-        .string({ description: "RT Surat Pengantar" })
-        .max(3)
-        .default("")
-        .transform((str) => str.padStart(3, "0")),
-    rw: z
-        .string({ description: "RW Surat Pengantar" })
-        .max(3)
-        .default("")
-        .transform((str) => str.padStart(3, "0")),
     alamatDomisili: z.string({ description: "Alamat Lengkap Domisili" }),
     keperluan: z.string({
         description: "Keperluan/Alasan membuat surat.",
@@ -38,6 +29,10 @@ export type SKDTTFormType = z.infer<typeof SKDTTFormSchema>
 export const SKDTTFormFieldConfig: FieldConfig<SKDTTFormType> = {
     suratPengantar: {
         fieldType: "file",
+        description: "Pastika format foto berupa PNG/JPG/JPEG",
+        inputProps: {
+            accept: "image/png, image/jpeg",
+        },
     },
     jenisKelamin: {
         fieldType: "radio",

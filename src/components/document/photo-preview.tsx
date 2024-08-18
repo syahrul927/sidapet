@@ -5,7 +5,7 @@ import { FormDescription, FormLabel } from "../ui/form"
 
 interface PhotoPreviewProps {
     title?: string
-    children: ReactNode
+    children?: ReactNode
     src: string
 }
 const PhotoPreview = ({ children, title, src }: PhotoPreviewProps) => {

@@ -12,7 +12,7 @@ const RequestItem = (props: RequestItemProps) => {
         [props.documentCode],
     )
     if (!docType) {
-        return <p>Dokumen tidak Valid</p>
+        return <p>Surat tidak Valid</p>
     }
     return props.status === "NEW" ? (
         <RequestDialogNew {...props} docType={docType} />

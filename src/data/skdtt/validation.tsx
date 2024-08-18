@@ -8,6 +8,16 @@ import { parseToSchema } from "~/utils/json-utils"
 
 export const SKDTTValidationSchema = SKDTTFormSchema.extend({
     suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
+    rt: z
+        .string({ description: "RT Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
+    rw: z
+        .string({ description: "RW Surat Pengantar" })
+        .max(3)
+        .default("")
+        .transform((str) => str.padStart(3, "0")),
     tglSuratPengantar: z.coerce.date({
         description: "Tanggal Surat Pengantar dibuat",
     }),
@@ -21,6 +31,16 @@ export const SKDTTValidationFieldConfig = (
 ): FieldConfig<z.infer<typeof SKDTTValidationSchema>> => {
     const form = parseToSchema(SKDTTFormSchema, values)
     return {
+        photoKtp: {
+            renderParent: ({ children }) => {
+                return (
+                    <PhotoPreview
+                        src={form.photoKtp}
+                        title="Foto KTP"
+                    ></PhotoPreview>
+                )
+            },
+        },
         jenisKelamin: {
             fieldType: "radio",
             inputProps: {

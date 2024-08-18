@@ -8,6 +8,14 @@ import PhotoPreview from "~/components/document/photo-preview"
 
 export const SKBPMValidationSchema = SKBPMFormSchema.extend({
     suratPengantarValue: z.string({ description: "Kode Surat Pengantar" }),
+    rt: z
+        .string({ description: "RT Surat Pengantar" })
+        .max(3)
+        .transform((str) => str.padStart(3, "0")),
+    rw: z
+        .string({ description: "RW Surat Pengantar" })
+        .max(3)
+        .transform((str) => str.padStart(3, "0")),
     tglSuratPengantar: z.coerce.date({
         description: "Tanggal Surat Pengantar dibuat",
     }),
@@ -20,6 +28,16 @@ export const SKBPMValidationFieldConfig = (
 ): FieldConfig<z.infer<typeof SKBPMValidationSchema>> => {
     const form = parseToSchema(SKBPMFormSchema, values)
     return {
+        photoKtp: {
+            renderParent: ({ children }) => {
+                return (
+                    <PhotoPreview
+                        src={form.photoKtp}
+                        title="Foto KTP"
+                    ></PhotoPreview>
+                )
+            },
+        },
         jenisKelamin: {
             fieldType: "radio",
             inputProps: {

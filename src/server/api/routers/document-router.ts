@@ -107,6 +107,9 @@ const DocumentRouter = createTRPCRouter({
                     not: Status.DONE,
                 },
             },
+            orderBy: {
+                createdDate: "asc",
+            },
             select: {
                 id: true,
                 ownerName: true,

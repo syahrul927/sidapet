@@ -11,7 +11,9 @@ export const SKKFormSchema = BasicSchema.extend({
     namaKepalaKeluarga: z.string(),
     nomorKartuKeluarga: z.string(),
     jenazah: z.object({
+        photoKtpJenazah: z.string({ description: "Upload foto KTP Jenazah" }),
         nikJenazah: z.string(),
+        photoKKJenazah: z.string({ description: "Upload foto KK Jenazah" }),
         namaJenazah: z.string(),
         jenisKelaminJenazah: formJenisKelamin,
         tempatLahirJenazah: z.string(),
@@ -43,6 +45,7 @@ export const SKKFormSchema = BasicSchema.extend({
         alamatIbu: z.string(),
     }),
     pelapor: z.object({
+        photoKtpPelapor: z.string({ description: "Upload foto KTP Pelapor" }),
         nikPelapor: z.string(),
         namaPelapor: z.string(),
         tempatLahirPelapor: z.string(),
@@ -51,6 +54,7 @@ export const SKKFormSchema = BasicSchema.extend({
         alamatPelapor: z.string(),
     }),
     saksi1: z.object({
+        photoKtpSaksi1: z.string({ description: "Upload foto KTP Saksi 1" }),
         nikSaksi1: z.string(),
         namaSaksi1: z.string(),
         tempatLahirSaksi1: z.string(),
@@ -59,6 +63,7 @@ export const SKKFormSchema = BasicSchema.extend({
         alamatSaksi1: z.string(),
     }),
     saksi2: z.object({
+        photoKtpSaksi2: z.string({ description: "Upload foto KTP Saksi 2" }),
         nikSaksi2: z.string(),
         namaSaksi2: z.string(),
         tempatLahirSaksi2: z.string(),
@@ -70,6 +75,20 @@ export const SKKFormSchema = BasicSchema.extend({
 export type SKKFormType = z.infer<typeof SKKFormSchema>
 export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
     jenazah: {
+        photoKtpJenazah: {
+            fieldType: "file",
+            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            inputProps: {
+                accept: "image/png, image/jpeg",
+            },
+        },
+        photoKKJenazah: {
+            fieldType: "file",
+            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            inputProps: {
+                accept: "image/png, image/jpeg",
+            },
+        },
         jenisKelaminJenazah: {
             fieldType: "radio",
         },
@@ -91,16 +110,37 @@ export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
         },
     },
     pelapor: {
+        photoKtpPelapor: {
+            fieldType: "file",
+            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            inputProps: {
+                accept: "image/png, image/jpeg",
+            },
+        },
         alamatPelapor: {
             fieldType: "textarea",
         },
     },
     saksi1: {
+        photoKtpSaksi1: {
+            fieldType: "file",
+            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            inputProps: {
+                accept: "image/png, image/jpeg",
+            },
+        },
         alamatSaksi1: {
             fieldType: "textarea",
         },
     },
     saksi2: {
+        photoKtpSaksi2: {
+            fieldType: "file",
+            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            inputProps: {
+                accept: "image/png, image/jpeg",
+            },
+        },
         alamatSaksi2: {
             fieldType: "textarea",
         },
