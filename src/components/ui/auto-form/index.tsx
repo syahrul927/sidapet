@@ -133,7 +133,8 @@ export const AutoFormAlert = () => {
             <MessageCircleWarningIcon />
             <AlertTitle>Perhatian!</AlertTitle>
             <AlertDescription>
-                Form belum terisi dengan benar, harap cek kembali!
+                Form belum terisi dengan benar, harap cek kembali!{" "}
+                {JSON.stringify(errors)}
             </AlertDescription>
         </Alert>
     )

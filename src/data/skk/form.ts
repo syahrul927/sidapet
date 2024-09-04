@@ -11,9 +11,43 @@ export const SKKFormSchema = BasicSchema.extend({
     namaKepalaKeluarga: z.string(),
     nomorKartuKeluarga: z.string(),
     jenazah: z.object({
-        photoKtpJenazah: z.string({ description: "Upload foto KTP Jenazah" }),
+        photoKtpJenazah: z
+            .string({ description: "Upload foto KTP Jenazah" })
+            .refine(
+                (value) => {
+                    const validMimeTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/jpg",
+                    ]
+
+                    return validMimeTypes.some((mimeType) =>
+                        value.startsWith(`data:${mimeType};base64,`),
+                    )
+                },
+                {
+                    message: "Foto tidak valid, harus berupa PNG/JPG/JPEG",
+                },
+            ),
         nikJenazah: z.string(),
-        photoKKJenazah: z.string({ description: "Upload foto KK Jenazah" }),
+        photoKKJenazah: z
+            .string({ description: "Upload foto KK Jenazah" })
+            .refine(
+                (value) => {
+                    const validMimeTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/jpg",
+                    ]
+
+                    return validMimeTypes.some((mimeType) =>
+                        value.startsWith(`data:${mimeType};base64,`),
+                    )
+                },
+                {
+                    message: "Foto tidak valid, harus berupa PNG/JPG/JPEG",
+                },
+            ),
         namaJenazah: z.string(),
         jenisKelaminJenazah: formJenisKelamin,
         tempatLahirJenazah: z.string(),
@@ -45,7 +79,24 @@ export const SKKFormSchema = BasicSchema.extend({
         alamatIbu: z.string(),
     }),
     pelapor: z.object({
-        photoKtpPelapor: z.string({ description: "Upload foto KTP Pelapor" }),
+        photoKtpPelapor: z
+            .string({ description: "Upload foto KTP Pelapor" })
+            .refine(
+                (value) => {
+                    const validMimeTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/jpg",
+                    ]
+
+                    return validMimeTypes.some((mimeType) =>
+                        value.startsWith(`data:${mimeType};base64,`),
+                    )
+                },
+                {
+                    message: "Foto tidak valid, harus berupa PNG/JPG/JPEG",
+                },
+            ),
         nikPelapor: z.string(),
         namaPelapor: z.string(),
         tempatLahirPelapor: z.string(),
@@ -54,7 +105,24 @@ export const SKKFormSchema = BasicSchema.extend({
         alamatPelapor: z.string(),
     }),
     saksi1: z.object({
-        photoKtpSaksi1: z.string({ description: "Upload foto KTP Saksi 1" }),
+        photoKtpSaksi1: z
+            .string({ description: "Upload foto KTP Saksi 1" })
+            .refine(
+                (value) => {
+                    const validMimeTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/jpg",
+                    ]
+
+                    return validMimeTypes.some((mimeType) =>
+                        value.startsWith(`data:${mimeType};base64,`),
+                    )
+                },
+                {
+                    message: "Foto tidak valid, harus berupa PNG/JPG/JPEG",
+                },
+            ),
         nikSaksi1: z.string(),
         namaSaksi1: z.string(),
         tempatLahirSaksi1: z.string(),
@@ -63,7 +131,24 @@ export const SKKFormSchema = BasicSchema.extend({
         alamatSaksi1: z.string(),
     }),
     saksi2: z.object({
-        photoKtpSaksi2: z.string({ description: "Upload foto KTP Saksi 2" }),
+        photoKtpSaksi2: z
+            .string({ description: "Upload foto KTP Saksi 2" })
+            .refine(
+                (value) => {
+                    const validMimeTypes = [
+                        "image/jpeg",
+                        "image/png",
+                        "image/jpg",
+                    ]
+
+                    return validMimeTypes.some((mimeType) =>
+                        value.startsWith(`data:${mimeType};base64,`),
+                    )
+                },
+                {
+                    message: "Foto tidak valid, harus berupa PNG/JPG/JPEG",
+                },
+            ),
         nikSaksi2: z.string(),
         namaSaksi2: z.string(),
         tempatLahirSaksi2: z.string(),
@@ -77,14 +162,16 @@ export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
     jenazah: {
         photoKtpJenazah: {
             fieldType: "file",
-            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            description:
+                "Pastikan format foto berupa PNG/JPG/JPEG dan Maksimal ukuran 1 MB",
             inputProps: {
                 accept: "image/png, image/jpeg",
             },
         },
         photoKKJenazah: {
             fieldType: "file",
-            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            description:
+                "Pastikan format foto berupa PNG/JPG/JPEG dan Maksimal ukuran 1 MB",
             inputProps: {
                 accept: "image/png, image/jpeg",
             },
@@ -112,7 +199,8 @@ export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
     pelapor: {
         photoKtpPelapor: {
             fieldType: "file",
-            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            description:
+                "Pastikan format foto berupa PNG/JPG/JPEG dan Maksimal ukuran 1 MB",
             inputProps: {
                 accept: "image/png, image/jpeg",
             },
@@ -124,7 +212,8 @@ export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
     saksi1: {
         photoKtpSaksi1: {
             fieldType: "file",
-            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            description:
+                "Pastikan format foto berupa PNG/JPG/JPEG dan Maksimal ukuran 1 MB",
             inputProps: {
                 accept: "image/png, image/jpeg",
             },
@@ -136,7 +225,8 @@ export const SKKFormFieldConfig: FieldConfig<z.infer<typeof SKKFormSchema>> = {
     saksi2: {
         photoKtpSaksi2: {
             fieldType: "file",
-            description: "Pastika format foto berupa PNG/JPG/JPEG",
+            description:
+                "Pastikan format foto berupa PNG/JPG/JPEG dan Maksimal ukuran 1 MB",
             inputProps: {
                 accept: "image/png, image/jpeg",
             },
