@@ -117,7 +117,6 @@ const DocumentRouter = createTRPCRouter({
                 documentConter: true,
                 documentCode: true,
                 createdDate: true,
-                formatDocument: true,
             },
         })
         return documents

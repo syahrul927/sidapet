@@ -47,7 +47,6 @@ const RequestDialogNew = (props: Props) => {
                 {open ? (
                     <FormValidationProps
                         onClose={() => setOpen(false)}
-                        data={props.formatDocument}
                         docType={props.docType}
                         id={props.id}
                     />

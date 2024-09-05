@@ -7,20 +7,18 @@ import { api } from "~/trpc/react"
 import { DialogClose, DialogFooter } from "../ui/dialog"
 import { useToast } from "../ui/use-toast"
 import WhatsappButton from "../ui/whatsapp-button"
+import LoadingPage from "../ui/loading-page"
 
 interface FormValidationProps {
     onClose: () => void
     docType: DynamicPropsArray
-    data: string
     id: string
 }
-const FormValidationProps = ({
-    data,
-    docType,
-    id,
-    onClose,
-}: FormValidationProps) => {
-    const values = docType.formSchema.parse(JSON.parse(data))
+const FormValidationProps = ({ docType, id, onClose }: FormValidationProps) => {
+    const { data } = api.document.getDetailRequest.useQuery(id)
+    const values = docType.formSchema
+        .partial()
+        .parse(JSON.parse(data?.formatDocument ?? "{}"))
     const { toast } = useToast()
     const { refetch } = useQueue()
     const { mutate } = api.document.validateRequest.useMutation({
@@ -44,18 +42,20 @@ const FormValidationProps = ({
     const onSubmit = (values: z.infer<typeof docType.validationSchema>) => {
         mutate({ id, formatDocument: JSON.stringify(values) })
     }
-    return (
+    return !data ? (
+        <LoadingPage />
+    ) : (
         <AutoForm
             onSubmit={onSubmit}
-            fieldConfig={docType.validationFieldConfig(data)}
+            fieldConfig={docType.validationFieldConfig(data.formatDocument)}
             values={values}
             formSchema={docType.validationSchema}
         >
             <DialogFooter className="flex-row gap-2">
                 <DialogClose>
                     <WhatsappButton
-                        phoneNumber={values.phoneNumber}
-                        name={values.name}
+                        phoneNumber={values.phoneNumber ?? ""}
+                        name={values.name ?? ""}
                         title={docType.title}
                     />
                 </DialogClose>
