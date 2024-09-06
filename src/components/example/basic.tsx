@@ -165,7 +165,7 @@ function Basics() {
                         file: {
                             fieldType: "file",
                             description:
-                                "Pastika format foto berupa PNG/JPG/JPEG",
+                                "Pastikan format foto berupa PNG/JPG/JPEG dan Maksimal ukuran 1 MB",
                             inputProps: {
                                 accept: "image/png, image/jpeg",
                             },
