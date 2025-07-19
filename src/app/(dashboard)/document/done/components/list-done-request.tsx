@@ -24,7 +24,6 @@ const ListDoneRequest = () => {
                     documentCounter={item.documentConter}
                     name={item.ownerName ?? ""}
                     documentCode={item.documentCode}
-                    formatDocument={JSON.stringify(item.formatDocument) ?? ""}
                     createdDate={item.createdDate}
                     status={item.status}
                     id={item.id}
